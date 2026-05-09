@@ -9,7 +9,6 @@ export function MainLayout() {
     <div className="main-layout">
       <Navbar />
       <div className="main-layout-shell">
-        {/* Enable sidebar: import AppSidebar and render here */}
         <main className="main-layout-main">
           <Container maxWidth="xl" className="main-layout-content">
             <div key={location.pathname} className="main-layout-outlet page-route-enter">

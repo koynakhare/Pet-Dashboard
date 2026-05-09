@@ -7,16 +7,11 @@ import { selectSearchQuery } from '@/features/pets/petsSelectors'
 const SEARCH_DEBOUNCE_MS = 280
 
 export type UseSearchResult = {
-  /** Immediate value bound to the search field */
   searchInput: string
   setSearchInput: (value: string) => void
-  /** Last value committed to Redux (drives local filtering) */
   committedQuery: string
 }
 
-/**
- * Local search field state with lodash-debounced writes to Redux (single source for filtering).
- */
 export function useSearch(): UseSearchResult {
   const dispatch = useAppDispatch()
   const committedQuery = useAppSelector(selectSearchQuery)

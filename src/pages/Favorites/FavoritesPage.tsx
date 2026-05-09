@@ -129,9 +129,9 @@ export default function FavoritesPage() {
     <div className="favorites-page-root anim-fade-in">
       <FavoriteHero />
 
-      {favoritesAll.length > 0 ? <FavoriteStats stats={stats} /> : null}
+      {favoritesAll?.length > 0 ? <FavoriteStats stats={stats} /> : null}
 
-      {favoritesAll.length > 0 ? (
+      {favoritesAll?.length > 0 ? (
         <FavoritesToolbar
           query={query}
           onQueryChange={setQuery}
@@ -147,9 +147,9 @@ export default function FavoritesPage() {
         />
       ) : null}
 
-      {favoritesAll.length === 0 ? (
+      {favoritesAll?.length === 0 ? (
         <EmptyFavorites />
-      ) : filteredPets.length === 0 ? (
+      ) : filteredPets?.length === 0 ? (
         <Paper className="favorites-page-empty-filter glass-surface anim-slide-up">
           <Typography component="h3" className="favorites-page-empty-title">
             No matches in your favorites

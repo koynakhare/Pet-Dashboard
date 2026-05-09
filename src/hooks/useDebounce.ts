@@ -1,9 +1,6 @@
 import debounce from 'lodash/debounce'
 import { useEffect, useMemo, useState } from 'react'
 
-/**
- * Returns `value` only after it has stayed stable for `delayMs` (leading updates suppressed).
- */
 export function useDebouncedValue<T>(value: T, delayMs: number): T {
   const [debounced, setDebounced] = useState(value)
   const queue = useMemo(
@@ -13,6 +10,7 @@ export function useDebouncedValue<T>(value: T, delayMs: number): T {
   useEffect(() => {
     queue(value)
   }, [value, queue])
+  
   useEffect(
     () => () => {
       queue.cancel()

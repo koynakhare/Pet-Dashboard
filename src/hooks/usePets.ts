@@ -23,10 +23,8 @@ export type PetsUiStatus = 'idle' | 'loading' | 'error' | 'empty' | 'success'
 export type PetSortOption = 'newest' | 'oldest' | 'name-asc' | 'name-desc'
 
 export type UsePetsResult = {
-  /** Full cached catalog (ignores UI filters). */
   catalogPets: Pet[]
   pets: Pet[]
-  /** Sorted + filtered list derived from the Redux cache (no network). */
   displayPets: Pet[]
   loading: boolean
   error: string | null
@@ -37,20 +35,14 @@ export type UsePetsResult = {
   setSortByOption: (value: PetSortOption) => void
   favoritesOnly: boolean
   setFavoritesOnly: (value: boolean) => void
-  /** Idempotent: relies on `fetchPets` thunk `condition` for a single network call. */
   ensurePetsLoaded: () => void
-  /** Clears the slice error and attempts the fetch lifecycle again (still single success). */
   retryFetch: () => void
-  /** Lightweight derived stats for toolbars / headers (memoized). */
   galleryStats: {
     visibleCount: number
     favoriteCount: number
   }
 }
 
-/**
- * Orchestrates the single GET /pets fetch, derived view-model data, and UI status flags.
- */
 export function usePets(): UsePetsResult {
   const dispatch = useAppDispatch()
   const catalogPets = useAppSelector(selectPets)

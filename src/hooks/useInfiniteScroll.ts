@@ -21,10 +21,6 @@ export type UseInfiniteScrollResult<T> = {
   totalCount: number
 }
 
-/**
- * Client-only infinite scroll: reveals cached items in chunks when the sentinel intersects.
- * Does not perform network requests.
- */
 export function useInfiniteScroll<T>(
   items: T[],
   options: UseInfiniteScrollOptions = {},
