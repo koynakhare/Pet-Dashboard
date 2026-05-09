@@ -1,0 +1,17 @@
+.pet-detail-actions-root {
+  width: 100%;
+}
+
+.pet-detail-actions-grid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.pet-detail-action-btn {
+  text-transform: none;
+  font-weight: 700;
+  border-radius: var(--radius-md);
+  justify-content: flex-start;
+  padding-block: var(--space-3);
+}

@@ -1,0 +1,13 @@
+.home-page-root {
+  position: relative;
+  padding: var(--space-10) 0 var(--space-16);
+}
+
+.home-page-root::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 100% 0, rgba(18, 214, 255, 0.08), transparent 28%),
+    radial-gradient(circle at 0 100%, rgba(110, 91, 255, 0.08), transparent 34%);
+  pointer-events: none;
+}

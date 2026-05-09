@@ -1,0 +1,15 @@
+.gallery-root {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.gallery-list-footer {
+  width: 100%;
+}
+
+.gallery-infinite-sentinel {
+  width: 100%;
+  height: 1px;
+  pointer-events: none;
+}

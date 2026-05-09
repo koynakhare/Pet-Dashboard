@@ -1,0 +1,72 @@
+.pet-detail-skeleton-root {
+  padding-bottom: var(--space-12);
+}
+
+.pet-detail-skeleton-top {
+  margin-bottom: var(--space-4);
+}
+
+.pet-detail-skeleton-back {
+  border-radius: var(--radius-md);
+}
+
+.pet-detail-skeleton-split {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(280px, 380px);
+  gap: var(--space-8);
+  align-items: start;
+}
+
+@media (max-width: 1024px) {
+  .pet-detail-skeleton-split {
+    grid-template-columns: 1fr;
+  }
+}
+
+.pet-detail-skeleton-media {
+  min-height: 360px;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+}
+
+@media (min-width: 1025px) {
+  .pet-detail-skeleton-media {
+    min-height: 520px;
+  }
+}
+
+.pet-detail-skeleton-hero {
+  min-height: 100%;
+}
+
+.pet-detail-skeleton-aside {
+  width: 100%;
+}
+
+.pet-detail-skeleton-chips {
+  display: flex;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+.pet-detail-skeleton-stats {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-3);
+}
+
+.pet-detail-skeleton-stat {
+  border-radius: var(--radius-lg);
+}
+
+.pet-detail-skeleton-strip {
+  display: flex;
+  gap: var(--space-3);
+  margin-top: var(--space-8);
+  overflow: hidden;
+}
+
+.pet-detail-skeleton-thumb {
+  flex-shrink: 0;
+  border-radius: var(--radius-md);
+}

@@ -1,0 +1,109 @@
+.dash-recent-section {
+  margin-top: var(--space-10);
+}
+
+.dash-recent-grid {
+  display: grid;
+  gap: var(--space-4);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.dash-recent-card {
+  border-radius: var(--radius-lg);
+  padding: var(--space-4);
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: var(--space-4);
+  align-items: center;
+  transition:
+    transform 240ms ease,
+    box-shadow 240ms ease,
+    filter 240ms ease;
+}
+
+.dash-recent-card:hover {
+  transform: translateY(-4px) scale(1.01);
+  box-shadow: var(--shadow-glow);
+}
+
+.dash-recent-avatar {
+  width: 56px;
+  height: 56px;
+  border-radius: var(--radius-md);
+}
+
+.dash-recent-name {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 800;
+}
+
+.dash-recent-breed {
+  margin: var(--space-1) 0 0;
+  color: var(--color-muted);
+  font-size: 0.86rem;
+}
+
+.dash-recent-meta {
+  margin: var(--space-2) 0 0;
+  font-size: 0.75rem;
+  color: var(--color-muted);
+  font-weight: 600;
+}
+
+.dash-recent-link {
+  text-transform: none;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.dash-recent-empty {
+  border-radius: var(--radius-xl);
+  padding: var(--space-10);
+  text-align: center;
+}
+
+.dash-recent-empty-icon {
+  font-size: 3rem;
+  color: var(--color-primary);
+}
+
+.dash-recent-empty-title {
+  margin: var(--space-4) 0 0;
+  font-size: 1.2rem;
+  font-weight: 800;
+}
+
+.dash-recent-empty-desc {
+  margin: var(--space-2) auto 0;
+  max-width: 420px;
+  color: var(--color-muted);
+}
+
+.dash-recent-empty-cta {
+  margin-top: var(--space-6);
+  border-radius: 999px;
+  padding: var(--space-2) var(--space-6);
+  text-transform: none;
+  font-weight: 700;
+  background: var(--gradient-primary);
+}
+
+.dash-recent-error {
+  border-radius: var(--radius-lg);
+}
+
+.dash-recent-retry {
+  text-transform: none;
+  font-weight: 700;
+}
+
+.dash-recent-skel {
+  min-height: 88px;
+}
+
+.dash-recent-skel-avatar {
+  width: 56px;
+  height: 56px;
+  border-radius: var(--radius-md);
+}

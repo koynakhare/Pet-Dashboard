@@ -1,0 +1,37 @@
+.home-feature-card {
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  min-height: 220px;
+  transition:
+    transform 260ms ease,
+    box-shadow 260ms ease,
+    filter 260ms ease;
+}
+
+.home-feature-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-glow);
+  filter: saturate(1.08);
+}
+
+.home-feature-card-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: var(--radius-md);
+  display: grid;
+  place-items: center;
+  background: var(--gradient-primary);
+  color: #fff;
+  margin-bottom: var(--space-4);
+}
+
+.home-feature-card-title {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.home-feature-card-description {
+  margin: var(--space-3) 0 0;
+  color: var(--color-muted);
+}

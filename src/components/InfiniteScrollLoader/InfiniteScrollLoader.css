@@ -1,0 +1,17 @@
+.ui-infinite-scroll-loader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  padding: var(--space-6) 0;
+  color: var(--color-muted);
+}
+
+.ui-infinite-scroll-loader-spinner {
+  color: var(--color-primary);
+}
+
+.ui-infinite-scroll-loader-label {
+  font-size: 0.88rem;
+  font-weight: 600;
+}

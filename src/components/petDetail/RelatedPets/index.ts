@@ -1,0 +1,1 @@
+export { RelatedPets } from './RelatedPets'

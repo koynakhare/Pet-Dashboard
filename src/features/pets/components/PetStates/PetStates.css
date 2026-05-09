@@ -1,0 +1,11 @@
+.pet-states-empty {
+  min-height: 260px;
+}
+
+.pet-states-empty-icon {
+  font-size: 3rem;
+}
+
+.pet-states-error {
+  min-height: 220px;
+}

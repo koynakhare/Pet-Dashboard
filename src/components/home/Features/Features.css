@@ -1,0 +1,17 @@
+.home-features-section {
+  margin-top: var(--space-16);
+}
+
+.home-section-heading {
+  margin: 0;
+  font-size: clamp(1.8rem, 3vw, 2.6rem);
+  letter-spacing: -0.02em;
+  line-height: 1.16;
+}
+
+.home-features-grid {
+  margin-top: var(--space-8);
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-5);
+}

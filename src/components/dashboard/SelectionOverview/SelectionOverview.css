@@ -1,0 +1,72 @@
+.dash-widget {
+  border-radius: var(--radius-lg);
+  padding: var(--space-5);
+  transition:
+    transform 240ms ease,
+    box-shadow 240ms ease;
+}
+
+.dash-widget:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-glow);
+}
+
+.dash-widget-selection {
+  min-height: 200px;
+}
+
+.dash-selection-body {
+  display: flex;
+  align-items: center;
+  gap: var(--space-5);
+  margin-top: var(--space-2);
+}
+
+.dash-selection-ring {
+  width: 96px;
+  height: 96px;
+  flex-shrink: 0;
+}
+
+.dash-selection-track {
+  fill: none;
+  stroke: rgba(110, 91, 255, 0.15);
+  stroke-width: 8;
+}
+
+.dash-selection-progress {
+  fill: none;
+  stroke: url(#dashRingGrad);
+  stroke-width: 8;
+  stroke-linecap: round;
+  transform: rotate(-90deg);
+  transform-origin: 48px 48px;
+}
+
+.dash-selection-count {
+  margin: 0;
+  font-size: 1.75rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+
+.dash-selection-cap {
+  color: var(--color-muted);
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.dash-selection-hint {
+  margin: var(--space-2) 0 0;
+  font-size: 0.8rem;
+  color: var(--color-muted);
+  font-weight: 600;
+}
+
+.dash-selection-ring-skel {
+  display: block;
+  width: 96px;
+  height: 96px;
+  border-radius: 999px;
+  margin-top: var(--space-3);
+}

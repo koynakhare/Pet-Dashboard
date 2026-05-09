@@ -1,0 +1,53 @@
+.auth-floating-shapes {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.auth-floating-shapes-blob {
+  position: absolute;
+  border-radius: 999px;
+  filter: blur(1px);
+  opacity: 0.55;
+}
+
+.auth-floating-shapes-blob-1 {
+  width: 380px;
+  height: 380px;
+  top: -120px;
+  left: -80px;
+  background: radial-gradient(circle at 40% 40%, rgba(110, 91, 255, 0.45), transparent 68%);
+  animation: floatUpDown 9s ease-in-out infinite;
+}
+
+.auth-floating-shapes-blob-2 {
+  width: 280px;
+  height: 280px;
+  bottom: 10%;
+  right: -40px;
+  background: radial-gradient(circle at 50% 50%, rgba(18, 214, 255, 0.38), transparent 70%);
+  animation: floatUpDown 8s ease-in-out infinite reverse;
+}
+
+.auth-floating-shapes-blob-3 {
+  width: 200px;
+  height: 200px;
+  top: 42%;
+  left: 25%;
+  background: radial-gradient(circle at 60% 35%, rgba(255, 125, 209, 0.28), transparent 72%);
+  animation: floatUpDown 7s ease-in-out infinite;
+}
+
+.auth-floating-shapes-ring {
+  position: absolute;
+  width: 420px;
+  height: 420px;
+  border-radius: 50%;
+  border: 1px solid rgba(110, 91, 255, 0.15);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0.5;
+}

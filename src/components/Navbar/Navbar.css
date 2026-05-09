@@ -1,0 +1,93 @@
+.app-navbar {
+  backdrop-filter: blur(18px);
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-surface-glass);
+  box-shadow: var(--shadow-soft);
+}
+
+.app-navbar-toolbar {
+  gap: var(--space-4);
+  flex-wrap: nowrap;
+  min-height: 64px;
+}
+
+.app-navbar-brand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-shrink: 0;
+}
+
+.app-navbar-logo {
+  width: 36px;
+  height: 36px;
+  background: var(--gradient-primary);
+  font-weight: 800;
+  font-size: 0.95rem;
+}
+
+.app-navbar-title {
+  font-weight: 800;
+  font-size: 1.05rem;
+  letter-spacing: -0.02em;
+  color: var(--color-text);
+}
+
+.app-navbar-links {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  flex: 1;
+  justify-content: center;
+  min-width: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding: var(--space-1) 0;
+}
+
+.app-navbar-links::-webkit-scrollbar {
+  display: none;
+}
+
+.app-navbar-link {
+  color: var(--color-text);
+  text-transform: none;
+  font-weight: 600;
+  border-radius: var(--radius-md);
+  transition:
+    background 200ms ease,
+    transform 200ms ease;
+  flex-shrink: 0;
+}
+
+.app-navbar-link:hover {
+  background: rgba(110, 91, 255, 0.08);
+}
+
+.app-navbar-link.active {
+  background: rgba(110, 91, 255, 0.14);
+  color: var(--color-primary);
+}
+
+.app-navbar-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-shrink: 0;
+}
+
+.app-navbar-theme-toggle {
+  border-radius: var(--radius-md);
+}
+
+.app-navbar-user-avatar {
+  width: 34px;
+  height: 34px;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.app-navbar-auth {
+  text-transform: none;
+  font-weight: 600;
+}

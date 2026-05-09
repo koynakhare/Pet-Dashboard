@@ -1,0 +1,123 @@
+.empty-favorites {
+  border-radius: var(--radius-xl);
+  padding: var(--space-10) var(--space-8);
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  gap: var(--space-10);
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+@media (max-width: 960px) {
+  .empty-favorites {
+    grid-template-columns: 1fr;
+    padding: var(--space-8) var(--space-6);
+  }
+}
+
+.empty-favorites-visual {
+  position: relative;
+  min-height: 240px;
+}
+
+.empty-favorites-blob {
+  position: absolute;
+  border-radius: 999px;
+  filter: blur(0);
+  opacity: 0.85;
+}
+
+.empty-favorites-blob-a {
+  width: 220px;
+  height: 220px;
+  left: -40px;
+  top: -30px;
+  background: radial-gradient(circle at 40% 40%, rgba(110, 91, 255, 0.55), transparent 70%);
+  animation: blobDrift 20s ease-in-out infinite;
+}
+
+.empty-favorites-blob-b {
+  width: 180px;
+  height: 180px;
+  right: -20px;
+  bottom: -40px;
+  background: radial-gradient(circle at 50% 40%, rgba(18, 214, 255, 0.42), transparent 72%);
+  animation: blobDrift 24s ease-in-out infinite reverse;
+}
+
+.empty-favorites-illustration {
+  width: 100%;
+  max-width: 380px;
+  margin-inline: auto;
+  display: block;
+  filter: drop-shadow(0 28px 48px rgba(15, 23, 42, 0.25));
+}
+
+.empty-favorites-sparkle {
+  position: absolute;
+  top: 12%;
+  right: 18%;
+  color: rgba(255, 255, 255, 0.92);
+  animation: floatUpDown 5.5s ease-in-out infinite;
+}
+
+.empty-favorites-copy {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.empty-favorites-title {
+  margin: 0;
+  font-size: clamp(1.75rem, 3vw, 2.35rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+
+.empty-favorites-subtitle {
+  margin: 0;
+  font-size: 1.02rem;
+  line-height: 1.65;
+  color: var(--color-muted);
+  max-width: 520px;
+}
+
+.empty-favorites-features {
+  margin: var(--space-2) 0 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.empty-favorites-feature {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.empty-favorites-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: var(--gradient-primary);
+  box-shadow: 0 0 18px rgba(110, 91, 255, 0.45);
+}
+
+.empty-favorites-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-top: var(--space-2);
+}
+
+.empty-favorites-cta {
+  text-transform: none;
+  font-weight: 700;
+  border-radius: var(--radius-md);
+  padding-inline: var(--space-5);
+}

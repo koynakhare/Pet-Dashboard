@@ -1,0 +1,38 @@
+.dash-hero {
+  position: relative;
+  border-radius: var(--radius-xl);
+  padding: var(--space-8) var(--space-10);
+  margin-bottom: var(--space-8);
+  overflow: hidden;
+  box-shadow: var(--shadow-soft);
+}
+
+.dash-hero-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 720px;
+}
+
+.dash-hero-kicker {
+  margin: 0 0 var(--space-2);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-primary);
+}
+
+.dash-hero-title {
+  margin: 0;
+  font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+}
+
+.dash-hero-summary {
+  margin: var(--space-4) 0 0;
+  font-size: 1.05rem;
+  color: var(--color-muted);
+  line-height: 1.55;
+}

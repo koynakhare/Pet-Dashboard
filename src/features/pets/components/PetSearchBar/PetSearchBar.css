@@ -1,0 +1,11 @@
+.gallery-searchbar-input {
+  min-width: 340px;
+  background: rgba(255, 255, 255, 0.84);
+  border-radius: var(--radius-sm);
+}
+
+@media (max-width: 900px) {
+  .gallery-searchbar-input {
+    min-width: 100%;
+  }
+}

@@ -1,0 +1,145 @@
+@media (max-width: 1199px) {
+  .app-sidebar {
+    display: none;
+  }
+
+  .main-layout-shell {
+    padding-inline: var(--space-3);
+  }
+}
+
+@media (max-width: 1024px) {
+  .pet-detail-showcase {
+    grid-template-columns: 1fr;
+  }
+
+  .pet-detail-showcase-aside {
+    position: static;
+    max-height: none;
+    overflow: visible;
+  }
+
+  .pet-detail-floating {
+    bottom: var(--space-5);
+  }
+
+  .login-page {
+    grid-template-columns: 1fr;
+  }
+
+  .login-page-hero {
+    min-height: auto;
+    border-right: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .auth-hero {
+    padding: var(--space-8) var(--space-6) var(--space-10);
+  }
+
+  .auth-feature-highlights {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .home-hero-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-10);
+  }
+
+  .home-hero-visual {
+    min-height: 360px;
+  }
+
+  .home-section-heading {
+    font-size: 1.8rem;
+  }
+
+  .home-features-grid,
+  .home-gallery-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .dashboard-page-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .dash-sidebar {
+    position: static;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .dash-charts-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .dash-stats-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .dash-quick-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .dash-analytics-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  .auth-feature-highlights {
+    grid-template-columns: 1fr;
+  }
+
+  .auth-hero-float-cards {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .auth-float-card-b {
+    margin-left: 0;
+  }
+
+  .gallery-toolbar-root {
+    top: 66px;
+  }
+
+  .home-page-root {
+    padding: var(--space-8) 0 var(--space-12);
+  }
+
+  .home-hero-title {
+    font-size: 2rem;
+  }
+
+  .home-hero-actions {
+    width: 100%;
+    flex-direction: column;
+  }
+
+  .home-hero-action {
+    width: 100%;
+  }
+
+  .home-stats-grid,
+  .home-features-grid,
+  .home-gallery-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .dash-stats-grid,
+  .dash-quick-grid,
+  .dash-analytics-grid,
+  .dash-recent-grid,
+  .dash-sidebar {
+    grid-template-columns: 1fr;
+  }
+
+  .pet-detail-floating {
+    bottom: var(--space-5);
+  }
+
+  .pet-detail-floating-fab {
+    transform: scale(0.94);
+  }
+}

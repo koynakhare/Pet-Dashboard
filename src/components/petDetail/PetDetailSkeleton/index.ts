@@ -1,0 +1,1 @@
+export { PetDetailSkeleton } from './PetDetailSkeleton'

@@ -1,0 +1,35 @@
+.ui-btn {
+  text-transform: none;
+  font-weight: 700;
+  border-radius: 999px;
+  padding-inline: var(--space-6);
+  transition:
+    transform 200ms ease,
+    box-shadow 200ms ease,
+    filter 200ms ease;
+}
+
+.ui-btn:hover {
+  transform: translateY(-1px);
+}
+
+.ui-btn-primary {
+  background: var(--gradient-primary);
+  color: #fff;
+  box-shadow: var(--shadow-soft);
+}
+
+.ui-btn-primary:hover {
+  box-shadow: var(--shadow-glow);
+  filter: brightness(1.05);
+}
+
+.ui-btn-outline {
+  border-color: var(--color-border);
+  color: var(--color-text);
+}
+
+.ui-btn-outline:hover {
+  border-color: var(--color-primary);
+  background: rgba(110, 91, 255, 0.06);
+}

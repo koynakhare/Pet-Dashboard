@@ -1,0 +1,92 @@
+.pet-detail-gallery-preview {
+  border-radius: var(--radius-xl);
+  padding: var(--space-5);
+  margin-top: var(--space-8);
+  border: 1px solid var(--color-border);
+}
+
+.pet-detail-gallery-preview-head {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  margin-bottom: var(--space-4);
+}
+
+.pet-detail-gallery-preview-icon {
+  color: var(--color-primary);
+  font-size: 1.75rem;
+}
+
+.pet-detail-gallery-preview-title {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.pet-detail-gallery-preview-sub {
+  margin: var(--space-1) 0 0;
+  font-size: 0.88rem;
+  color: var(--color-muted);
+  line-height: 1.5;
+}
+
+.pet-detail-gallery-preview-track {
+  display: flex;
+  gap: var(--space-3);
+  overflow-x: auto;
+  padding-bottom: var(--space-2);
+  scroll-snap-type: x mandatory;
+  scrollbar-width: thin;
+}
+
+.pet-detail-gallery-preview-thumb {
+  flex: 0 0 120px;
+  scroll-snap-align: start;
+  border: none;
+  padding: 0;
+  margin: 0;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  cursor: pointer;
+  background: rgba(110, 91, 255, 0.06);
+  text-align: left;
+  transition:
+    transform var(--dur-base) var(--ease-soft),
+    box-shadow var(--dur-base) var(--ease-soft),
+    border-color var(--dur-base) var(--ease-soft);
+  border: 1px solid transparent;
+}
+
+.pet-detail-gallery-preview-thumb:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-glow);
+}
+
+.pet-detail-gallery-preview-thumb--active {
+  border-color: rgba(110, 91, 255, 0.55);
+  box-shadow: var(--shadow-soft);
+}
+
+.pet-detail-gallery-preview-img {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  display: block;
+  transition: transform var(--dur-slow) var(--ease-soft);
+}
+
+.pet-detail-gallery-preview-thumb:hover .pet-detail-gallery-preview-img {
+  transform: scale(1.06);
+}
+
+.pet-detail-gallery-preview-label {
+  display: block;
+  padding: var(--space-2) var(--space-2) var(--space-3);
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--color-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

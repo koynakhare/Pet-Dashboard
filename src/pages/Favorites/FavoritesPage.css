@@ -1,0 +1,29 @@
+.favorites-page-root {
+  padding-bottom: var(--space-12);
+}
+
+.favorites-page-empty-filter {
+  border-radius: var(--radius-xl);
+  padding: var(--space-10) var(--space-8);
+  text-align: center;
+  max-width: 560px;
+  margin-inline: auto;
+}
+
+.favorites-page-empty-title {
+  margin: 0 0 var(--space-2);
+  font-size: 1.35rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.favorites-page-empty-sub {
+  margin: 0 0 var(--space-5);
+  color: var(--color-muted);
+  line-height: 1.6;
+}
+
+.favorites-page-empty-reset {
+  text-transform: none;
+  font-weight: 700;
+}

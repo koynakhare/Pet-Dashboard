@@ -1,0 +1,214 @@
+.about-page {
+  padding-bottom: var(--space-16);
+}
+
+.about-hero {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius-xl);
+  padding: var(--space-12) var(--space-8);
+  margin-bottom: var(--space-12);
+  text-align: center;
+  border: 1px solid var(--color-border);
+}
+
+.about-hero-glow {
+  position: absolute;
+  inset: -40%;
+  background: var(--gradient-hero-bg);
+  opacity: 0.85;
+  pointer-events: none;
+}
+
+.about-hero-avatar {
+  position: relative;
+  width: 96px;
+  height: 96px;
+  margin: 0 auto var(--space-6);
+  font-size: 2rem;
+  font-weight: 800;
+  background: var(--gradient-primary);
+  border: 3px solid rgba(255, 255, 255, 0.85);
+  box-shadow: var(--shadow-glow);
+}
+
+.about-hero-title {
+  position: relative;
+  margin: 0;
+  font-size: clamp(1.75rem, 4vw, 2.75rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  max-width: 720px;
+  margin-inline: auto;
+}
+
+.about-hero-lead {
+  position: relative;
+  margin: var(--space-5) auto 0;
+  max-width: 560px;
+  color: var(--color-muted);
+  font-size: 1.05rem;
+  line-height: 1.65;
+}
+
+.about-hero-actions {
+  position: relative;
+  margin-top: var(--space-8);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  justify-content: center;
+}
+
+.about-hero-secondary {
+  background: transparent;
+}
+
+.about-panel {
+  padding: var(--space-8);
+  margin-bottom: var(--space-12);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+}
+
+.about-panel-icon-wrap {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-md);
+  display: grid;
+  place-items: center;
+  background: rgba(110, 91, 255, 0.12);
+  margin-bottom: var(--space-4);
+}
+
+.about-panel-icon {
+  color: var(--color-primary);
+  font-size: 1.75rem;
+}
+
+.about-panel-body {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.75;
+  color: var(--color-text);
+}
+
+.about-tech-grid {
+  list-style: none;
+  margin: 0 0 var(--space-12);
+  padding: 0;
+  display: grid;
+  gap: var(--space-4);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.about-tech-card {
+  padding: var(--space-5);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+  transition:
+    transform 240ms ease,
+    box-shadow 240ms ease;
+}
+
+.about-tech-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-glow);
+}
+
+.about-tech-name {
+  margin: 0;
+  font-weight: 800;
+  font-size: 1rem;
+}
+
+.about-tech-detail {
+  margin: var(--space-2) 0 0;
+  font-size: 0.88rem;
+  color: var(--color-muted);
+  line-height: 1.45;
+}
+
+.about-skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-bottom: var(--space-12);
+}
+
+.about-skill-chip {
+  font-weight: 600;
+  border-radius: 999px;
+}
+
+.about-social-grid {
+  display: grid;
+  gap: var(--space-4);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.about-social-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-6);
+  border-radius: var(--radius-lg);
+  text-decoration: none;
+  color: inherit;
+  border: 1px solid var(--color-border);
+  transition:
+    transform 240ms ease,
+    box-shadow 240ms ease;
+}
+
+.about-social-card:hover {
+  transform: translateY(-6px) scale(1.01);
+  box-shadow: var(--shadow-glow);
+}
+
+.about-social-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-md);
+  display: grid;
+  place-items: center;
+  background: var(--gradient-primary);
+  color: #fff;
+}
+
+.about-social-title {
+  font-weight: 800;
+  font-size: 1.1rem;
+}
+
+.about-social-sub {
+  font-size: 0.88rem;
+  color: var(--color-muted);
+}
+
+.about-social-cta {
+  margin-top: var(--space-3);
+  font-weight: 700;
+  font-size: 0.88rem;
+  color: var(--color-primary);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+@media (max-width: 900px) {
+  .about-tech-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .about-social-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .about-tech-grid {
+    grid-template-columns: 1fr;
+  }
+}

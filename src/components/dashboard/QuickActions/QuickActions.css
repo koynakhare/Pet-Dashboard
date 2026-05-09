@@ -1,0 +1,64 @@
+.dash-quick-section {
+  margin-top: var(--space-10);
+}
+
+.dash-quick-grid {
+  display: grid;
+  gap: var(--space-4);
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.dash-quick-card {
+  border-radius: var(--radius-lg);
+  padding: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  transition:
+    transform 240ms ease,
+    box-shadow 240ms ease,
+    filter 240ms ease;
+}
+
+.dash-quick-card:hover {
+  transform: translateY(-5px) scale(1.01);
+  box-shadow: var(--shadow-glow);
+  filter: blur(0);
+}
+
+.dash-quick-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-md);
+  display: grid;
+  place-items: center;
+  background: var(--gradient-primary);
+  color: #fff;
+  margin-bottom: var(--space-3);
+}
+
+.dash-quick-title {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.dash-quick-desc {
+  margin: var(--space-2) 0 0;
+  color: var(--color-muted);
+  font-size: 0.88rem;
+  flex: 1;
+}
+
+.dash-quick-button {
+  margin-top: var(--space-4);
+  padding-left: 0;
+  font-weight: 700;
+  text-transform: none;
+  color: var(--color-primary);
+}
+
+.dash-quick-skel {
+  min-height: 160px;
+}

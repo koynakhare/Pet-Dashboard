@@ -1,0 +1,13 @@
+.ui-searchbar-input {
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  min-width: min(100%, 280px);
+}
+
+.ui-searchbar-input fieldset {
+  border-color: var(--color-border);
+}
+
+.ui-searchbar-icon {
+  color: var(--color-muted);
+}

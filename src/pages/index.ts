@@ -1,0 +1,8 @@
+export { default as HomePage } from './Home'
+export { default as PetsPage } from './pets'
+export { default as PetDetailPage } from './PetDetail'
+export { default as LoginPage } from './Login'
+export { default as DashboardPage } from './Dashboard'
+export { default as NotFoundPage } from './NotFound'
+export { default as AboutPage } from './About'
+export { default as FavoritesPage } from './Favorites'

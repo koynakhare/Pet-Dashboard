@@ -1,0 +1,57 @@
+.home-floating-cards {
+  position: absolute;
+  inset: 0;
+}
+
+.home-floating-card {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  border-radius: var(--radius-md);
+  padding: var(--space-3) var(--space-4);
+  transition:
+    transform 260ms ease,
+    box-shadow 260ms ease,
+    filter 260ms ease;
+}
+
+.home-floating-card:hover {
+  transform: translateY(-6px) scale(1.03);
+  box-shadow: var(--shadow-glow);
+  filter: saturate(1.1);
+}
+
+.home-floating-card-1 {
+  top: 4%;
+  left: 6%;
+  animation: floatUpDown 6s ease-in-out infinite;
+}
+
+.home-floating-card-2 {
+  top: 42%;
+  right: 6%;
+  animation: floatUpDown 7s ease-in-out infinite reverse;
+}
+
+.home-floating-card-3 {
+  left: 16%;
+  bottom: 6%;
+  animation: floatUpDown 6.4s ease-in-out infinite;
+}
+
+.home-floating-card-avatar {
+  width: 44px;
+  height: 44px;
+  border: 2px solid rgba(255, 255, 255, 0.7);
+}
+
+.home-floating-card-title {
+  font-size: 0.92rem;
+  font-weight: 700;
+}
+
+.home-floating-card-subtitle {
+  font-size: 0.74rem;
+  opacity: 0.8;
+}

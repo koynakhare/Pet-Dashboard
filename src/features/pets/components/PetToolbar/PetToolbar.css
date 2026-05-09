@@ -1,0 +1,75 @@
+.gallery-toolbar-root {
+  padding: var(--space-4) var(--space-5);
+  position: sticky;
+  top: 72px;
+  z-index: 8;
+  backdrop-filter: blur(20px);
+  background: var(--color-surface-glass);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-soft);
+  transition:
+    box-shadow 280ms ease,
+    border-color 280ms ease;
+}
+
+.gallery-toolbar-root:hover {
+  box-shadow: var(--shadow-glow);
+}
+
+.gallery-toolbar-row-main {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.gallery-toolbar-select {
+  min-width: 170px;
+}
+
+.gallery-toolbar-favorites-label {
+  align-items: center;
+}
+
+.gallery-toolbar-spacer {
+  flex: 1;
+  min-width: var(--space-4);
+}
+
+.gallery-toolbar-selection-cluster {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--space-1);
+  min-width: min(220px, 100%);
+}
+
+.gallery-toolbar-selection-summary {
+  font-size: 0.88rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  color: var(--color-text);
+  padding: var(--space-2) var(--space-4);
+  border-radius: 999px;
+  border: 1px solid var(--color-border);
+  background: rgba(110, 91, 255, 0.06);
+  white-space: nowrap;
+}
+
+.gallery-toolbar-download-progress {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--color-muted);
+  max-width: 280px;
+  text-align: right;
+  word-break: break-word;
+}
+
+.gallery-toolbar-date-chip {
+  font-weight: 600;
+}
+
+.gallery-toolbar-action-chip {
+  padding-inline: var(--space-2);
+}

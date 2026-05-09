@@ -1,0 +1,9 @@
+.pets-page-root {
+  gap: var(--space-5);
+}
+
+.pets-page-skeleton-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}

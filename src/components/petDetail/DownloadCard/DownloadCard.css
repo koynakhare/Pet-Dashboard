@@ -1,0 +1,62 @@
+.pet-detail-download-card {
+  border-radius: var(--radius-xl);
+  padding: var(--space-5);
+  border: 1px solid var(--color-border);
+}
+
+.pet-detail-download-card-head {
+  display: flex;
+  gap: var(--space-4);
+  align-items: flex-start;
+  margin-bottom: var(--space-4);
+}
+
+.pet-detail-download-card-icon {
+  font-size: 2rem;
+  color: var(--color-primary);
+  flex-shrink: 0;
+}
+
+.pet-detail-download-card-title {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.pet-detail-download-card-sub {
+  margin: var(--space-2) 0 0;
+  font-size: 0.9rem;
+  line-height: 1.55;
+  color: var(--color-muted);
+}
+
+.pet-detail-download-card-actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.pet-detail-download-primary {
+  width: 100%;
+}
+
+.pet-detail-download-link {
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 700;
+  font-size: 0.88rem;
+  color: var(--color-primary);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-align: center;
+  transition: opacity var(--dur-fast) ease;
+}
+
+.pet-detail-download-link:hover {
+  opacity: 0.85;
+}
