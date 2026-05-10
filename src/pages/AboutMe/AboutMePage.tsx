@@ -21,7 +21,7 @@ const CREDITS = [
     id: 'api',
     name: 'Demo API',
     description:
-      'Hackathon `/pets` JSON consumed via configurable `VITE_API_BASE_URL`; offline bundle when unreachable.',
+      'Hackathon `/pets` JSON from `API_BASE_URL` in `src/config.ts`; offline bundle when unreachable.',
     href: 'https://eulerity-hackathon.appspot.com/',
   },
   {

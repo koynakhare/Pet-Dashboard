@@ -69,15 +69,11 @@ npm run preview      # preview production build
 *           → Redirect to /404
 ```
 
-## Environment variables
+## Configuration
 
-Create a `.env` in the project root:
+The API base URL is set in [`src/config.ts`](src/config.ts) (`API_BASE_URL`).
 
-```env
-VITE_API_BASE_URL=https://eulerity-hackathon.appspot.com
-```
-
-Optional for testing dual-failure UX: `VITE_FORCE_PETS_DUAL_FAILURE=true`
+Optional `.env` for testing dual-failure UX: `VITE_FORCE_PETS_DUAL_FAILURE=true`
 
 ## Responsive breakpoints
 

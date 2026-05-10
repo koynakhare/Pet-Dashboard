@@ -28,7 +28,7 @@ dist-ssr
 coverage
 .nyc_output
 
-# Environment (keep .env.example committed if you add one)
+# Environment
 .env
 .env.local
 .env.development.local
