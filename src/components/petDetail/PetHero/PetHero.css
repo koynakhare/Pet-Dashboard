@@ -51,6 +51,10 @@
 .pet-detail-hero-frame {
   position: relative;
   z-index: 1;
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 0;
   border-radius: var(--radius-xl);
   overflow: hidden;
   border: 1px solid var(--color-border);
@@ -62,9 +66,7 @@
   display: block;
   max-height: min(78vh, 720px);
   object-fit: cover;
-  transition:
-    transform var(--dur-slow) var(--ease-soft),
-    filter var(--dur-slow) var(--ease-soft);
+  transition: transform var(--dur-slow) var(--ease-soft), filter var(--dur-slow) var(--ease-soft);
 }
 
 .pet-detail-hero-frame:hover .pet-detail-hero-image {
@@ -84,23 +86,27 @@
   pointer-events: none;
 }
 
-.pet-detail-hero-badge {
+.pet-detail-hero-actions {
   position: absolute;
-  left: var(--space-5);
-  bottom: var(--space-5);
+  left: var(--space-4);
+  bottom: var(--space-4);
   z-index: 2;
 }
 
-.pet-detail-hero-badge-text {
-  display: inline-flex;
-  padding: var(--space-2) var(--space-4);
-  border-radius: 999px;
-  font-size: 0.72rem;
-  font-weight: 800;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
+.pet-detail-hero-open-btn.MuiButton-root {
+  text-transform: none;
+  font-weight: 700;
+  border-radius: var(--radius-md);
+  padding-block: var(--space-2);
+  padding-inline: var(--space-4);
   color: #fff;
-  background: rgba(17, 23, 47, 0.45);
-  border: 1px solid rgba(255, 255, 255, 0.28);
+  background: rgba(9, 13, 25, 0.72);
+  border: 1px solid rgba(255, 255, 255, 0.22);
   backdrop-filter: blur(12px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+.pet-detail-hero-open-btn.MuiButton-root:hover {
+  background: rgba(9, 13, 25, 0.88);
+  border-color: rgba(255, 255, 255, 0.35);
 }

@@ -3,7 +3,6 @@ import './Loader.css'
 
 type LoaderProps = {
   label?: string
-  /** Full-viewport style fallback for Suspense */
   variant?: 'inline' | 'page'
 }
 

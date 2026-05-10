@@ -3,10 +3,7 @@
   font-weight: 700;
   border-radius: 999px;
   padding-inline: var(--space-6);
-  transition:
-    transform 200ms ease,
-    box-shadow 200ms ease,
-    filter 200ms ease;
+  transition: transform 200ms ease, box-shadow 200ms ease, filter 200ms ease;
 }
 
 .ui-btn:hover {

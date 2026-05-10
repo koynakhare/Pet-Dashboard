@@ -1,16 +1,24 @@
+import { PrimaryLinkButton } from '@/components/buttons'
+import { RoutePath } from '@/utils/enums/routePath'
 import AutoAwesomeRoundedIcon from '@mui/icons-material/AutoAwesomeRounded'
 import ExploreRoundedIcon from '@mui/icons-material/ExploreRounded'
 import { Typography } from '@mui/material'
 import map from 'lodash/map'
-import { Link as RouterLink } from 'react-router-dom'
-import { OutlineButton, PrimaryButton } from '@/components/buttons'
-import { RoutePath } from '@/utils/enums/routePath'
 import './EmptyFavorites.css'
 
 const FEATURES = [
-  { id: 'sync', label: 'Synced across gallery & detail views' },
-  { id: 'curate', label: 'Curate export-ready mood boards' },
-  { id: 'glass', label: 'Glassmorphism UI tuned for focus' },
+  {
+    id: 'collect',
+    label: 'Heart pets from gallery cards or pet pages,they all collect here',
+  },
+  {
+    id: 'gallery-filter',
+    label: 'In the gallery, use Favorites only to browse just the pets you’ve hearted',
+  },
+  {
+    id: 'manage',
+    label: 'On this page, search, sort, or clear your whole favorites list',
+  },
 ]
 
 export function EmptyFavorites() {
@@ -54,7 +62,7 @@ export function EmptyFavorites() {
           Start building your favorites
         </Typography>
         <Typography component="p" className="empty-favorites-subtitle">
-          Tap the heart on any pet card — your picks appear here instantly with gallery-grade polish.
+          Tap the heart on any pet card, your picks appear here instantly with gallery-grade polish.
         </Typography>
 
         <ul className="empty-favorites-features">
@@ -67,18 +75,14 @@ export function EmptyFavorites() {
         </ul>
 
         <div className="empty-favorites-actions">
-          <PrimaryButton
-            component={RouterLink}
+          <PrimaryLinkButton
             to={RoutePath.Pets}
             size="large"
             endIcon={<ExploreRoundedIcon />}
             className="empty-favorites-cta"
           >
             Browse the gallery
-          </PrimaryButton>
-          <OutlineButton component={RouterLink} to={RoutePath.Home} size="large" className="empty-favorites-cta">
-            Back to home
-          </OutlineButton>
+          </PrimaryLinkButton>
         </div>
       </div>
     </div>

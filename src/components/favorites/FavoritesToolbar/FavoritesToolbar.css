@@ -54,22 +54,12 @@
 
 .favorites-toolbar-controls {
   display: grid;
-  grid-template-columns: minmax(0, 2fr) minmax(160px, 1fr) minmax(160px, 1fr);
+  grid-template-columns: minmax(0, 2fr) minmax(160px, 1fr);
   gap: var(--space-4);
   align-items: flex-start;
 }
 
-@media (max-width: 1024px) {
-  .favorites-toolbar-controls {
-    grid-template-columns: 1fr 1fr;
-  }
-
-  .favorites-toolbar-search {
-    grid-column: 1 / -1;
-  }
-}
-
-@media (max-width: 600px) {
+@media (max-width: 900px) {
   .favorites-toolbar-controls {
     grid-template-columns: 1fr;
   }
@@ -89,34 +79,6 @@
 
 .favorites-toolbar-field .MuiOutlinedInput-root {
   border-radius: var(--radius-md);
-}
-
-.favorites-toolbar-tag-chips {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-2);
-}
-
-.favorites-toolbar-chip {
-  border-radius: 999px;
-  font-weight: 600;
-  border: 1px solid var(--color-border);
-  background: rgba(110, 91, 255, 0.06);
-  transition:
-    transform var(--dur-fast) var(--ease-soft),
-    box-shadow var(--dur-fast) var(--ease-soft),
-    border-color var(--dur-fast) var(--ease-soft);
-}
-
-.favorites-toolbar-chip:hover {
-  transform: translateY(-1px);
-  box-shadow: var(--shadow-soft);
-}
-
-.favorites-toolbar-chip--active {
-  border-color: rgba(110, 91, 255, 0.55);
-  background: rgba(110, 91, 255, 0.16);
-  color: var(--color-primary);
 }
 
 .favorites-toolbar-actions {

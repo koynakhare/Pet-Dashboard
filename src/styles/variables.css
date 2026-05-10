@@ -44,7 +44,7 @@
   --stagger-step: 48ms;
 }
 
-:root[data-theme='dark'] {
+:root[data-theme="dark"] {
   --color-bg: #060816;
   --color-bg-soft: #0e1430;
   --color-surface: #10172f;
@@ -59,7 +59,7 @@
 }
 
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme='light']) {
+  :root:not([data-theme="light"]) {
     --color-bg: #060816;
     --color-bg-soft: #0e1430;
     --color-surface: #10172f;

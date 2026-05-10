@@ -9,6 +9,7 @@ export function PetSkeletonGrid({ count = 8 }: PetSkeletonGridProps) {
   return (
     <Stack className="gallery-skeleton-grid">
       {Array.from({ length: count }).map((_, index) => (
+        // biome-ignore lint/suspicious/noArrayIndexKey: Skeleton placeholders have fixed order (count only).
         <Stack key={index} spacing={1} className="gallery-skeleton-item">
           <Skeleton variant="rounded" height={190} />
           <Skeleton variant="text" height={28} />

@@ -1,8 +1,8 @@
 /// <reference types="vite/client" />
 
 interface ImportMetaEnv {
-  /** Base URL for REST API (no trailing slash). */
   readonly VITE_API_BASE_URL: string
+  readonly VITE_FORCE_PETS_DUAL_FAILURE?: string
 }
 
 interface ImportMeta {

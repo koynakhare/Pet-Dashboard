@@ -1,15 +1,16 @@
-import HomeRoundedIcon from '@mui/icons-material/HomeRounded'
+import { PrimaryLinkButton } from '@/components/buttons'
+import { RoutePath } from '@/utils/enums/routePath'
+import PetsIcon from '@mui/icons-material/Pets'
 import TravelExploreRoundedIcon from '@mui/icons-material/TravelExploreRounded'
 import map from 'lodash/map'
-import { PrimaryButton } from '@/components/Buttons'
-import { RoutePath } from '@/utils/enums/routePath'
 import { Link as RouterLink } from 'react-router-dom'
 import './NotFoundPage.css'
 
 const SUGGESTED_LINKS = [
   { id: 'home', label: 'Home', to: RoutePath.Home },
-  { id: 'pets', label: 'Gallery', to: RoutePath.Pets },
-  { id: 'about', label: 'About', to: RoutePath.About },
+  { id: 'gallery', label: 'Gallery', to: RoutePath.Pets },
+  { id: 'favorites', label: 'Favorites', to: RoutePath.Favorites },
+  { id: 'about', label: 'About me', to: RoutePath.About },
 ]
 
 export default function NotFoundPage() {
@@ -29,15 +30,14 @@ export default function NotFoundPage() {
           The URL might be mistyped, or the resource moved. Pick a destination below or head back to
           the gallery hub.
         </p>
-        <PrimaryButton
-          component={RouterLink}
-          to={RoutePath.Home}
+        <PrimaryLinkButton
+          to={RoutePath.Pets}
           size="large"
-          startIcon={<HomeRoundedIcon />}
+          startIcon={<PetsIcon />}
           className="not-found-page-cta"
         >
-          Back to home
-        </PrimaryButton>
+          Back to gallery
+        </PrimaryLinkButton>
         <nav className="not-found-page-links" aria-label="Suggested pages">
           <ul className="not-found-page-link-list">
             {map(SUGGESTED_LINKS, (link) => (

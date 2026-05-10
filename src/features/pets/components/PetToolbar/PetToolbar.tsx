@@ -1,13 +1,12 @@
+import { SearchBar } from '@/components/SearchBar'
+import { SelectionToolbar } from '@/components/SelectionToolbar'
 import ClearAllIcon from '@mui/icons-material/ClearAll'
-import CloudDownloadIcon from '@mui/icons-material/CloudDownload'
 import FilterAltIcon from '@mui/icons-material/FilterAlt'
 import SelectAllIcon from '@mui/icons-material/SelectAll'
 import { Box, Chip, FormControlLabel, MenuItem, Paper, Select, Stack, Switch } from '@mui/material'
 import dayjs from 'dayjs'
 import map from 'lodash/map'
 import { memo } from 'react'
-import { SearchBar } from '@/components/SearchBar'
-import { SelectionToolbar } from '@/components/SelectionToolbar'
 import './PetToolbar.css'
 
 type SortValue = 'newest' | 'oldest' | 'name-asc' | 'name-desc'
@@ -15,9 +14,6 @@ type SortValue = 'newest' | 'oldest' | 'name-asc' | 'name-desc'
 type PetToolbarProps = {
   query: string
   sortBy: SortValue
-  selectionSummary: string
-  downloadProgressLabel: string
-  isDownloading: boolean
   selectedCount: number
   favoritesOnly: boolean
   totalCount: number
@@ -26,7 +22,6 @@ type PetToolbarProps = {
   onFavoritesToggle: (value: boolean) => void
   onSelectAll: () => void
   onClearSelection: () => void
-  onDownloadSelected: () => void
 }
 
 const SORT_OPTIONS: Array<{ value: SortValue; label: string }> = [
@@ -39,9 +34,6 @@ const SORT_OPTIONS: Array<{ value: SortValue; label: string }> = [
 function PetToolbarComponent({
   query,
   sortBy,
-  selectionSummary,
-  downloadProgressLabel,
-  isDownloading,
   selectedCount,
   favoritesOnly,
   totalCount,
@@ -50,7 +42,6 @@ function PetToolbarComponent({
   onFavoritesToggle,
   onSelectAll,
   onClearSelection,
-  onDownloadSelected,
 }: PetToolbarProps) {
   const selectionActions = [
     {
@@ -58,23 +49,13 @@ function PetToolbarComponent({
       label: 'Select all',
       icon: <SelectAllIcon fontSize="small" />,
       onClick: onSelectAll,
-      disabled: isDownloading,
     },
     {
       id: 'clear',
       label: 'Clear',
       icon: <ClearAllIcon fontSize="small" />,
       onClick: onClearSelection,
-      disabled: isDownloading || selectedCount === 0,
-    },
-    {
-      id: 'download',
-      label: 'Download',
-      loadingLabel: downloadProgressLabel || 'Preparing…',
-      icon: <CloudDownloadIcon fontSize="small" />,
-      onClick: onDownloadSelected,
       disabled: selectedCount === 0,
-      loading: isDownloading,
     },
   ]
 
@@ -83,9 +64,10 @@ function PetToolbarComponent({
       <Stack spacing={2}>
         <div className="gallery-toolbar-row gallery-toolbar-row-main">
           <SearchBar
+            id="pets-gallery-search"
             value={query}
             onChange={onQueryChange}
-            placeholder="Search pets, tags, moods…"
+            placeholder="Search pets by title or description…"
             ariaLabel="Search pets gallery"
           />
           <Select
@@ -93,6 +75,7 @@ function PetToolbarComponent({
             value={sortBy}
             onChange={(event) => onSortChange(event.target.value as SortValue)}
             className="gallery-toolbar-select"
+            aria-label="Sort pets by date or title"
           >
             {map(SORT_OPTIONS, (option) => (
               <MenuItem key={option.value} value={option.value}>
@@ -106,7 +89,6 @@ function PetToolbarComponent({
               <Switch
                 checked={favoritesOnly}
                 onChange={(event) => onFavoritesToggle(event.target.checked)}
-                disabled={isDownloading}
               />
             }
             label={
@@ -117,15 +99,11 @@ function PetToolbarComponent({
             }
           />
           <Box className="gallery-toolbar-spacer" />
-          <div className="gallery-toolbar-selection-cluster">
-            <span className="gallery-toolbar-selection-summary">{selectionSummary}</span>
-            {isDownloading ? (
-              <span className="gallery-toolbar-download-progress">
-                {downloadProgressLabel || 'Preparing…'}
-              </span>
-            ) : null}
-          </div>
-          <Chip label={dayjs().format('DD MMM, YYYY')} variant="outlined" className="gallery-toolbar-date-chip" />
+          <Chip
+            label={dayjs().format('DD MMM, YYYY')}
+            variant="outlined"
+            className="gallery-toolbar-date-chip"
+          />
         </div>
         <SelectionToolbar summary={`${totalCount} curated assets`} actions={selectionActions} />
       </Stack>

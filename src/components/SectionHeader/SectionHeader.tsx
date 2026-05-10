@@ -1,5 +1,5 @@
-import type { ReactNode } from 'react'
 import { Typography } from '@mui/material'
+import type { ReactNode } from 'react'
 import './SectionHeader.css'
 
 type SectionHeaderProps = {
@@ -18,9 +18,7 @@ export function SectionHeader({
   align = 'left',
 }: SectionHeaderProps) {
   const rowClass =
-    align === 'center'
-      ? 'ui-section-header ui-section-header-center'
-      : 'ui-section-header'
+    align === 'center' ? 'ui-section-header ui-section-header-center' : 'ui-section-header'
   return (
     <div className={rowClass}>
       <div className="ui-section-header-text">

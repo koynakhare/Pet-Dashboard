@@ -1,31 +1,18 @@
-import { isAxiosError, type AxiosError } from 'axios'
+import { ERROR_MESSAGES, ERROR_MESSAGES_CLIENT, HTTP_STATUS } from '@/utils/errors/errorConstants'
+import { type ParsedErrorDetails, isAppHttpError } from '@/utils/errors/errorTypes'
+import { type AxiosError, isAxiosError } from 'axios'
 import { get } from 'lodash'
 import toast from 'react-hot-toast'
-import type { AppDispatch } from '@/redux/store'
-import { logout } from '@/redux/slices/authSlice'
-import { RoutePath } from '@/utils/enums/routePath'
-import {
-  ERROR_MESSAGES,
-  ERROR_MESSAGES_CLIENT,
-  HTTP_STATUS,
-} from '@/utils/errors/errorConstants'
-import { isAppHttpError, type ParsedErrorDetails } from '@/utils/errors/errorTypes'
 
-/** Dedupe window for identical notification keys (milliseconds). */
 const NOTIFICATION_DEDUP_MS = 2800
 
 const lastNotificationAt = new Map<string, number>()
 
 export type ShowAlertOptions = {
-  /** When true, no toast is shown. */
   silent?: boolean
-  /** Stable key for deduplication (defaults to message). */
   dedupeKey?: string
 }
 
-/**
- * Central user-visible error notification with duplicate suppression.
- */
 export function showAlert(message: string, options?: ShowAlertOptions): void {
   if (options?.silent) {
     return
@@ -40,23 +27,14 @@ export function showAlert(message: string, options?: ShowAlertOptions): void {
   toast.error(message, { id: key, duration: 5000 })
 }
 
-/**
- * Clears auth in Redux + storage and redirects to the login route (401 handling).
- */
-export function logoutUser(dispatch: AppDispatch): void {
-  dispatch(logout())
-  if (typeof globalThis.window !== 'undefined') {
-    globalThis.window.location.replace(RoutePath.Login)
-  }
+export function logoutUser(): void {
+  /* noop */
 }
 
 function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === 'object' && value !== null && !Array.isArray(value)
 }
 
-/**
- * Pulls a human-readable string from common API error JSON shapes (nested-safe).
- */
 function extractBackendMessage(data: unknown): string | undefined {
   if (data === null || data === undefined) {
     return undefined
@@ -90,10 +68,7 @@ function extractBackendMessage(data: unknown): string | undefined {
   if (typeof detail === 'string' && detail.trim().length > 0) {
     return detail.trim()
   }
-  if (
-    Array.isArray(detail) &&
-    detail.every((x: unknown): x is string => typeof x === 'string')
-  ) {
+  if (Array.isArray(detail) && detail.every((x: unknown): x is string => typeof x === 'string')) {
     return detail.join(', ')
   }
 
@@ -143,16 +118,12 @@ function messageForHttpStatus(status: number): string | undefined {
   }
 }
 
-/**
- * Normalizes any thrown value into a stable message + optional HTTP metadata.
- * Safe for axios errors, `AppHttpError`, generic `Error`, and unknown payloads.
- */
 export function formatErrorMessage(error: unknown): ParsedErrorDetails {
   if (isAppHttpError(error)) {
     return {
       message: error.message,
-      statusCode: error.statusCode,
-      code: error.code,
+      ...(error.statusCode !== undefined ? { statusCode: error.statusCode } : {}),
+      ...(error.code !== undefined ? { code: error.code } : {}),
     }
   }
 
@@ -201,22 +172,21 @@ function formatAxiosError(error: AxiosError<unknown>): ParsedErrorDetails {
     return {
       message,
       statusCode: status,
-      code: axiosCode,
+      ...(axiosCode !== undefined ? { code: axiosCode } : {}),
     }
   }
 
+  const messageFallback =
+    typeof error.message === 'string' && error.message.length > 0
+      ? error.message
+      : ERROR_MESSAGES_CLIENT.UNKNOWN
+
   return {
-    message:
-      typeof error.message === 'string' && error.message.length > 0
-        ? error.message
-        : ERROR_MESSAGES_CLIENT.UNKNOWN,
-    code: axiosCode,
+    message: messageFallback,
+    ...(axiosCode !== undefined ? { code: axiosCode } : {}),
   }
 }
 
-/**
- * Returns the default copy for a status when the server omits a body message.
- */
 export function getDefaultMessageForStatus(status: number): string {
   return messageForHttpStatus(status) ?? ERROR_MESSAGES_CLIENT.UNKNOWN
 }

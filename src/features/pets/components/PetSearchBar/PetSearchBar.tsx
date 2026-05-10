@@ -13,7 +13,7 @@ function PetSearchBarComponent({ value, onChange }: PetSearchBarProps) {
     <OutlinedInput
       size="small"
       className="gallery-searchbar-input"
-      placeholder="Search pets, tags, moods..."
+      placeholder="Search pets by title or description..."
       value={value}
       onChange={(event) => onChange(event.target.value)}
       startAdornment={

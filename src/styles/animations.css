@@ -161,10 +161,8 @@
 }
 
 .anim-hover-lift {
-  transition:
-    transform var(--dur-base) var(--ease-soft),
-    box-shadow var(--dur-base) var(--ease-soft),
-    border-color var(--dur-base) var(--ease-soft);
+  transition: transform var(--dur-base) var(--ease-soft), box-shadow var(--dur-base)
+    var(--ease-soft), border-color var(--dur-base) var(--ease-soft);
 }
 
 .anim-hover-lift:hover {
@@ -199,7 +197,7 @@
 }
 
 .anim-shimmer::after {
-  content: '';
+  content: "";
   position: absolute;
   inset: 0;
   background: linear-gradient(
@@ -259,7 +257,7 @@
 }
 
 .anim-navbar-underline::after {
-  content: '';
+  content: "";
   position: absolute;
   left: 12%;
   right: 12%;

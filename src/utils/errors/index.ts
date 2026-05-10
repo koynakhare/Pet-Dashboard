@@ -1,6 +1,3 @@
-/**
- * Public surface for centralized error handling (import from `@/utils/errors` when convenient).
- */
 export {
   ERROR_MESSAGES,
   ERROR_MESSAGES_CLIENT,

@@ -1,11 +1,9 @@
-import { createSelector } from '@reduxjs/toolkit'
-import filter from 'lodash/filter'
-import flatMap from 'lodash/flatMap'
-import get from 'lodash/get'
-import uniq from 'lodash/uniq'
 import type { RootState } from '@/redux/rootReducer'
 import { selectPetsSlice, selectSortedPets } from '@/redux/slices/petsSlice'
 import { selectSelectionState } from '@/redux/slices/selectionSlice'
+import { createSelector } from '@reduxjs/toolkit'
+import filter from 'lodash/filter'
+import get from 'lodash/get'
 
 export const selectPets = createSelector(selectPetsSlice, (s) => s.items)
 
@@ -15,11 +13,11 @@ export const selectFavoritePets = createSelector(selectPets, (pets) =>
 
 export const selectFavoriteAggregate = createSelector(selectFavoritePets, (pets) => {
   const totalMb = pets.reduce((sum, pet) => sum + pet.estimatedSizeMb, 0)
-  const uniqueTagCount = uniq(flatMap(pets, (pet) => pet.tags)).length
+  const avgMbPerPet = pets.length > 0 ? totalMb / pets.length : 0
   return {
     count: pets.length,
     totalMb,
-    uniqueTagCount,
+    avgMbPerPet,
   }
 })
 
@@ -31,10 +29,11 @@ export const selectPetCount = createSelector(selectPets, (pets) => pets.length)
 
 export const selectPetsHasRequested = createSelector(selectPetsSlice, (s) => s.hasRequested)
 export const selectPetsHasFetched = createSelector(selectPetsSlice, (s) => s.hasFetched)
-export const selectSelectedIds = createSelector(
-  selectSelectionState,
-  (s) => s.selectedIds,
+export const selectPetsUsingFallbackData = createSelector(
+  selectPetsSlice,
+  (s) => s.usingFallbackData,
 )
+export const selectSelectedIds = createSelector(selectSelectionState, (s) => s.selectedIds)
 export const selectSearchQuery = createSelector(selectPetsSlice, (s) => s.searchQuery)
 export const selectSortBy = createSelector(selectPetsSlice, (s) => s.sortBy)
 export const selectShowFavoritesOnly = createSelector(selectPetsSlice, (s) => s.showFavoritesOnly)
@@ -47,12 +46,8 @@ export const selectFilteredPets = createSelector(
     const filtered = filter(sorted, (pet) => {
       const title = String(get(pet, 'title', '')).toLowerCase()
       const description = String(get(pet, 'description', '')).toLowerCase()
-      const tags = (get(pet, 'tags', []) as string[]).join(' ').toLowerCase()
       const matchesText =
-        lowered.length === 0 ||
-        title.includes(lowered) ||
-        description.includes(lowered) ||
-        tags.includes(lowered)
+        lowered.length === 0 || title.includes(lowered) || description.includes(lowered)
       const matchesFavorite = !favoritesOnly || pet.favorite
       return matchesText && matchesFavorite
     })
@@ -65,9 +60,7 @@ export const selectSelectedCount = createSelector(selectSelectedIds, (ids) => id
 export const selectEstimatedSelectedSizeKb = createSelector(
   [selectPets, selectSelectedIds],
   (pets, ids) =>
-    pets
-      .filter((pet) => ids.includes(pet.id))
-      .reduce((total, pet) => total + pet.fileSizeKb, 0),
+    pets.filter((pet) => ids.includes(pet.id)).reduce((total, pet) => total + pet.fileSizeKb, 0),
 )
 
 export const selectEstimatedSelectedSizeMb = createSelector(
@@ -95,6 +88,4 @@ export const selectPetById = createSelector(
   (pets, petId) => pets.find((p) => p.id === petId),
 )
 
-export type PetsListItem = ReturnType<
-  typeof selectPetsWithThumbnails
->[number]
+export type PetsListItem = ReturnType<typeof selectPetsWithThumbnails>[number]

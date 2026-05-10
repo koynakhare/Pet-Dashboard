@@ -1,4 +1,3 @@
-import { useCallback, useEffect, useMemo } from 'react'
 import {
   selectFilteredPets,
   selectPets,
@@ -6,17 +5,15 @@ import {
   selectPetsHasFetched,
   selectPetsHasRequested,
   selectPetsLoading,
+  selectPetsUsingFallbackData,
   selectShowFavoritesOnly,
   selectSortBy,
 } from '@/features/pets/petsSelectors'
 import type { Pet } from '@/features/pets/petsTypes'
 import { fetchPets } from '@/redux/actions/petsActions'
 import { useAppDispatch, useAppSelector } from '@/redux/hooks'
-import {
-  clearPetsError,
-  setShowFavoritesOnly,
-  setSortBy,
-} from '@/redux/slices/petsSlice'
+import { clearPetsError, setShowFavoritesOnly, setSortBy } from '@/redux/slices/petsSlice'
+import { useCallback, useEffect, useMemo } from 'react'
 
 export type PetsUiStatus = 'idle' | 'loading' | 'error' | 'empty' | 'success'
 
@@ -30,6 +27,7 @@ export type UsePetsResult = {
   error: string | null
   hasFetched: boolean
   hasRequested: boolean
+  isFallbackMode: boolean
   uiStatus: PetsUiStatus
   sortBy: PetSortOption
   setSortByOption: (value: PetSortOption) => void
@@ -53,6 +51,7 @@ export function usePets(): UsePetsResult {
   const hasRequested = useAppSelector(selectPetsHasRequested)
   const sortBy = useAppSelector(selectSortBy)
   const favoritesOnly = useAppSelector(selectShowFavoritesOnly)
+  const isFallbackMode = useAppSelector(selectPetsUsingFallbackData)
 
   const ensurePetsLoaded = useCallback(() => {
     void dispatch(fetchPets())
@@ -64,7 +63,7 @@ export function usePets(): UsePetsResult {
 
   const retryFetch = useCallback(() => {
     dispatch(clearPetsError())
-    void dispatch(fetchPets())
+    void dispatch(fetchPets({ force: true }))
   }, [dispatch])
 
   const setSortByOption = useCallback(
@@ -86,10 +85,7 @@ export function usePets(): UsePetsResult {
   const galleryStats = useMemo(
     () => ({
       visibleCount: displayPets.length,
-      favoriteCount: displayPets.reduce(
-        (total, pet) => total + (pet.favorite ? 1 : 0),
-        0,
-      ),
+      favoriteCount: displayPets.reduce((total, pet) => total + (pet.favorite ? 1 : 0), 0),
     }),
     [displayPets],
   )
@@ -101,7 +97,7 @@ export function usePets(): UsePetsResult {
     if (!hasRequested) {
       return 'idle'
     }
-    if (loading && !hasFetched) {
+    if (loading) {
       return 'loading'
     }
     if (hasFetched && catalogPets.length === 0) {
@@ -121,6 +117,7 @@ export function usePets(): UsePetsResult {
     error,
     hasFetched,
     hasRequested,
+    isFallbackMode,
     uiStatus,
     sortBy,
     setSortByOption,

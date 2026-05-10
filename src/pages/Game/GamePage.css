@@ -1,0 +1,116 @@
+.game-page-root {
+  padding-bottom: var(--space-10);
+  padding-inline: var(--space-3);
+  max-width: 640px;
+  margin-inline: auto;
+  box-sizing: border-box;
+}
+
+@media (min-width: 680px) {
+  .game-page-root {
+    padding-inline: 0;
+  }
+}
+
+.game-page-play {
+  padding-top: var(--space-2);
+}
+
+.game-page-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 280px;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+  padding: var(--space-10);
+}
+
+.game-page-empty {
+  padding: var(--space-8);
+}
+
+.game-page-new-badge {
+  font-weight: 800;
+  font-size: 0.65rem;
+  height: 22px;
+  background: linear-gradient(135deg, #fbbf24 0%, #d97706 100%);
+  color: #fff;
+  border: none;
+  animation: game-page-badge-pulse 2.2s ease-in-out infinite;
+}
+
+@keyframes game-page-badge-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(251, 191, 36, 0.35);
+  }
+  50% {
+    transform: scale(1.04);
+    box-shadow: 0 4px 16px rgba(251, 191, 36, 0.35);
+  }
+}
+
+.game-page-question {
+  padding: var(--space-6);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--color-border);
+}
+
+.game-page-quiz-image {
+  width: 100%;
+  height: min(52vh, 320px);
+  object-fit: cover;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+  background: rgba(110, 91, 255, 0.08);
+}
+
+.game-page-option {
+  text-transform: none;
+  font-weight: 600;
+  border-radius: var(--radius-md);
+  padding-block: var(--space-3);
+  min-height: 48px;
+  border-width: 2px;
+}
+
+.game-page-option--correct {
+  border-color: #059669;
+  background: rgba(16, 185, 129, 0.12);
+  color: var(--color-text);
+}
+
+.game-page-option--wrong {
+  border-color: #dc2626;
+  background: rgba(239, 68, 68, 0.1);
+}
+
+.game-page-results {
+  display: flex;
+  justify-content: center;
+  padding-top: var(--space-4);
+}
+
+.game-page-result-card {
+  width: 100%;
+  max-width: 420px;
+  padding: var(--space-8);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--color-border);
+  text-align: center;
+}
+
+.game-page-result-trophy {
+  font-size: 4rem;
+  color: var(--color-warning, #eab308);
+  margin-bottom: var(--space-2);
+}
+
+@media (max-width: 600px) {
+  .game-page-quiz-image {
+    height: min(42vh, 260px);
+  }
+}

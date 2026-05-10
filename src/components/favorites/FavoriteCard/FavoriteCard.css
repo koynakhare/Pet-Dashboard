@@ -8,7 +8,7 @@
 }
 
 .favorite-card::after {
-  content: '';
+  content: "";
   position: absolute;
   inset: -40%;
   background: radial-gradient(circle at 30% 20%, rgba(110, 91, 255, 0.28), transparent 55%);
@@ -70,9 +70,7 @@
   backdrop-filter: blur(10px);
   opacity: 0;
   transform: translateY(6px);
-  transition:
-    opacity var(--dur-base) var(--ease-soft),
-    transform var(--dur-base) var(--ease-soft);
+  transition: opacity var(--dur-base) var(--ease-soft), transform var(--dur-base) var(--ease-soft);
 }
 
 .favorite-card-media:hover .favorite-card-open-badge {
@@ -122,18 +120,4 @@
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
-}
-
-.favorite-card-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-2);
-  margin-top: auto;
-}
-
-.favorite-card-tag {
-  border-radius: 999px;
-  font-weight: 600;
-  background: rgba(110, 91, 255, 0.08);
-  border: 1px solid rgba(110, 91, 255, 0.16);
 }

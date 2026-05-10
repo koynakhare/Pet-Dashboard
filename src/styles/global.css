@@ -10,15 +10,18 @@ body,
   height: 100%;
 }
 
+html {
+  overflow-x: clip;
+}
+
 body {
   margin: 0;
+  overflow-x: clip;
   background: var(--color-bg);
   color: var(--color-text);
-  font-family: 'Inter', 'SF Pro Display', 'Segoe UI', sans-serif;
+  font-family: "Inter", "SF Pro Display", "Segoe UI", sans-serif;
   line-height: 1.5;
-  transition:
-    background-color 280ms ease,
-    color 280ms ease;
+  transition: background-color 280ms ease, color 280ms ease;
 }
 
 a {
@@ -46,15 +49,11 @@ img {
 }
 
 .surface-ring-hover {
-  transition:
-    box-shadow var(--dur-base) var(--ease-soft),
-    border-color var(--dur-base) var(--ease-soft),
-    transform var(--dur-base) var(--ease-soft);
+  transition: box-shadow var(--dur-base) var(--ease-soft), border-color var(--dur-base)
+    var(--ease-soft), transform var(--dur-base) var(--ease-soft);
 }
 
 .surface-ring-hover:hover {
   border-color: rgba(110, 91, 255, 0.38);
-  box-shadow:
-    0 0 0 1px rgba(110, 91, 255, 0.22),
-    var(--shadow-elevated);
+  box-shadow: 0 0 0 1px rgba(110, 91, 255, 0.22), var(--shadow-elevated);
 }

@@ -1,9 +1,16 @@
 .ui-empty-state {
-  border-radius: var(--radius-lg);
   padding: var(--space-8);
   text-align: center;
-  border: 1px dashed var(--color-border);
-  background: var(--color-surface);
+}
+
+@media (max-width: 600px) {
+  .ui-empty-state {
+    padding: var(--space-6) var(--space-4);
+  }
+
+  .ui-empty-state-title {
+    font-size: clamp(1.05rem, 4.5vw, 1.15rem);
+  }
 }
 
 .ui-empty-state-icon-wrap {

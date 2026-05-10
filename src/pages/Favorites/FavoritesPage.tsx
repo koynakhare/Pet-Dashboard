@@ -1,11 +1,5 @@
-import { Paper, Typography } from '@mui/material'
 import { ConfirmDialog } from '@/components/ConfirmDialog'
 import { PrimaryButton } from '@/components/buttons'
-import filter from 'lodash/filter'
-import flatMap from 'lodash/flatMap'
-import uniq from 'lodash/uniq'
-import { useCallback, useMemo, useState } from 'react'
-import toast from 'react-hot-toast'
 import {
   EmptyFavorites,
   FavoriteGallery,
@@ -14,14 +8,18 @@ import {
   FavoritesToolbar,
 } from '@/components/favorites'
 import type { FavoriteStatItem } from '@/components/favorites/FavoriteStats'
-import { PetErrorState } from '@/features/pets/components/PetStates'
 import { PetSkeletonGrid } from '@/features/pets/components/PetSkeletonGrid'
+import { PetErrorState } from '@/features/pets/components/PetStates'
 import { selectFavoriteAggregate, selectFavoritePets } from '@/features/pets/petsSelectors'
-import type { PetSortOption } from '@/hooks/usePets'
 import { useDebouncedValue } from '@/hooks/useDebounce'
+import type { PetSortOption } from '@/hooks/usePets'
 import { usePets } from '@/hooks/usePets'
 import { useAppDispatch, useAppSelector } from '@/redux/hooks'
 import { clearAllFavorites, selectSortedPets, toggleFavorite } from '@/redux/slices/petsSlice'
+import { Paper, Typography } from '@mui/material'
+import filter from 'lodash/filter'
+import { useCallback, useMemo, useState } from 'react'
+import toast from 'react-hot-toast'
 import './FavoritesPage.css'
 
 export default function FavoritesPage() {
@@ -32,29 +30,20 @@ export default function FavoritesPage() {
 
   const [query, setQuery] = useState('')
   const [sortBy, setSortBy] = useState<PetSortOption>('newest')
-  const [tagFilter, setTagFilter] = useState('')
   const [clearFavoritesOpen, setClearFavoritesOpen] = useState(false)
   const debouncedQuery = useDebouncedValue(query, 280)
-
-  const tagOptions = useMemo(
-    () => uniq(flatMap(favoritesAll, (pet) => pet.tags)).sort((a, b) => a.localeCompare(b)),
-    [favoritesAll],
-  )
 
   const filteredPets = useMemo(() => {
     let list = favoritesAll
     const lowered = debouncedQuery.trim().toLowerCase()
     if (lowered) {
       list = filter(list, (pet) => {
-        const haystack = [pet.title, pet.description, pet.tags.join(' ')].join(' ').toLowerCase()
+        const haystack = `${pet.title} ${pet.description}`.toLowerCase()
         return haystack.includes(lowered)
       })
     }
-    if (tagFilter) {
-      list = filter(list, (pet) => pet.tags.includes(tagFilter))
-    }
     return selectSortedPets(list, sortBy)
-  }, [debouncedQuery, favoritesAll, sortBy, tagFilter])
+  }, [debouncedQuery, favoritesAll, sortBy])
 
   const stats = useMemo((): FavoriteStatItem[] => {
     return [
@@ -69,18 +58,17 @@ export default function FavoritesPage() {
         value: `${aggregate.totalMb.toFixed(1)} MB`,
       },
       {
-        id: 'tags',
-        label: 'Unique tags',
-        value: String(aggregate.uniqueTagCount),
+        id: 'avg-size',
+        label: 'Avg. size',
+        value: aggregate.count === 0 ? '—' : `${aggregate.avgMbPerPet.toFixed(2)} MB`,
       },
     ]
   }, [aggregate])
 
-  const filtersActive = Boolean(query.trim() || tagFilter)
+  const filtersActive = Boolean(query.trim())
 
   const clearFilters = useCallback(() => {
     setQuery('')
-    setTagFilter('')
   }, [])
 
   const handleClearAllFavorites = useCallback(() => {
@@ -120,7 +108,10 @@ export default function FavoritesPage() {
     return (
       <div className="favorites-page-root anim-fade-in">
         <FavoriteHero />
-        <PetErrorState message={petsData.error ?? 'Unable to load favorites'} onRetry={petsData.retryFetch} />
+        <PetErrorState
+          message={petsData.error ?? 'Unable to load favorites'}
+          onRetry={petsData.retryFetch}
+        />
       </div>
     )
   }
@@ -137,9 +128,6 @@ export default function FavoritesPage() {
           onQueryChange={setQuery}
           sortBy={sortBy}
           onSortChange={setSortBy}
-          tagFilter={tagFilter}
-          tagOptions={tagOptions}
-          onTagChange={setTagFilter}
           onClearFilters={clearFilters}
           filtersActive={filtersActive}
           onClearAllFavorites={handleClearAllFavorites}
@@ -155,7 +143,7 @@ export default function FavoritesPage() {
             No matches in your favorites
           </Typography>
           <Typography component="p" className="favorites-page-empty-sub">
-            Try another keyword, tag, or reset filters to see your whole collection.
+            Try another keyword or reset filters to see your whole collection.
           </Typography>
           <PrimaryButton className="favorites-page-empty-reset" onClick={clearFilters}>
             Reset filters

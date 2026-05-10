@@ -1,4 +1,3 @@
-
 export const RequestStatus = {
   Idle: 'idle',
   Loading: 'loading',
@@ -6,5 +5,4 @@ export const RequestStatus = {
   Failed: 'failed',
 } as const
 
-export type RequestStatusValue =
-  (typeof RequestStatus)[keyof typeof RequestStatus]
+export type RequestStatusValue = (typeof RequestStatus)[keyof typeof RequestStatus]

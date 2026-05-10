@@ -1,12 +1,10 @@
-
 export const RoutePath = {
   Home: '/',
-  Pets: '/pets',
+  Pets: '/gallery',
+  Game: '/game',
   PetDetail: '/pets/:id',
   Favorites: '/favorites',
   About: '/about',
-  Login: '/login',
-  Dashboard: '/dashboard',
   NotFound: '/404',
 } as const
 

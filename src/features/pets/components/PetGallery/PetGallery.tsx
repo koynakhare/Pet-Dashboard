@@ -1,14 +1,15 @@
-import { Box } from '@mui/material'
-import type { RefObject } from 'react'
-import { memo, type ReactNode } from 'react'
 import { GalleryGrid } from '@/components/GalleryGrid'
 import type { Pet } from '@/features/pets/petsTypes'
+import { Box } from '@mui/material'
+import type { RefObject } from 'react'
+import { type ReactNode, memo } from 'react'
 import { PetCard } from '../PetCard'
 import './PetGallery.css'
 
 type PetGalleryProps = {
   pets: Pet[]
   selectedIds: number[]
+  imageStaggerDelayMs?: number
   onSelect: (id: number) => void
   onFavorite: (id: number) => void
   onOpenDetail: (id: number) => void
@@ -19,6 +20,7 @@ type PetGalleryProps = {
 function PetGalleryComponent({
   pets,
   selectedIds,
+  imageStaggerDelayMs = 150,
   onSelect,
   onFavorite,
   onOpenDetail,
@@ -28,11 +30,13 @@ function PetGalleryComponent({
   return (
     <Box className="gallery-root">
       <GalleryGrid>
-        {pets.map((pet) => (
+        {pets.map((pet, index) => (
           <PetCard
-            key={pet.id}
+            key={`${pet.id}-${index}`}
             pet={pet}
             selected={selectedIds.includes(pet.id)}
+            index={index}
+            imageStaggerDelayMs={imageStaggerDelayMs}
             onSelect={onSelect}
             onFavorite={onFavorite}
             onOpenDetail={onOpenDetail}

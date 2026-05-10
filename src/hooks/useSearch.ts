@@ -1,8 +1,8 @@
-import debounce from 'lodash/debounce'
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { selectSearchQuery } from '@/features/pets/petsSelectors'
 import { useAppDispatch, useAppSelector } from '@/redux/hooks'
 import { setSearchQuery } from '@/redux/slices/petsSlice'
-import { selectSearchQuery } from '@/features/pets/petsSelectors'
+import debounce from 'lodash/debounce'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 
 const SEARCH_DEBOUNCE_MS = 280
 

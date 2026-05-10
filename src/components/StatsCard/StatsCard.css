@@ -2,9 +2,7 @@
   border-radius: var(--radius-lg);
   padding: var(--space-5);
   border: 1px solid var(--color-border);
-  transition:
-    transform 240ms ease,
-    box-shadow 240ms ease;
+  transition: transform 240ms ease, box-shadow 240ms ease;
 }
 
 .ui-stats-card:hover {
@@ -13,7 +11,8 @@
 }
 
 .ui-stats-card-gradient {
-  background-image: var(--gradient-hero-bg), linear-gradient(135deg, rgba(110, 91, 255, 0.06), transparent);
+  background-image: var(--gradient-hero-bg),
+    linear-gradient(135deg, rgba(110, 91, 255, 0.06), transparent);
 }
 
 .ui-stats-card-icon {

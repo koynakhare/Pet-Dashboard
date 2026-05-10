@@ -1,6 +1,6 @@
 import SearchIcon from '@mui/icons-material/Search'
 import { InputAdornment, OutlinedInput } from '@mui/material'
-import { memo } from 'react'
+import { forwardRef, memo } from 'react'
 import './SearchBar.css'
 
 export type SearchBarProps = {
@@ -11,29 +11,29 @@ export type SearchBarProps = {
   ariaLabel?: string
 }
 
-function SearchBarComponent({
-  value,
-  onChange,
-  placeholder = 'Search…',
-  id,
-  ariaLabel = 'Search',
-}: SearchBarProps) {
-  return (
-    <OutlinedInput
-      id={id}
-      size="small"
-      className="ui-searchbar-input"
-      placeholder={placeholder}
-      value={value}
-      onChange={(event) => onChange(event.target.value)}
-      inputProps={{ 'aria-label': ariaLabel }}
-      startAdornment={
-        <InputAdornment position="start">
-          <SearchIcon fontSize="small" className="ui-searchbar-icon" />
-        </InputAdornment>
-      }
-    />
-  )
-}
+const SearchBarComponent = forwardRef<HTMLInputElement, SearchBarProps>(
+  function SearchBarComponentInner(
+    { value, onChange, placeholder = 'Search…', id, ariaLabel = 'Search' }: SearchBarProps,
+    ref,
+  ) {
+    return (
+      <OutlinedInput
+        id={id}
+        size="small"
+        className="ui-searchbar-input"
+        placeholder={placeholder}
+        value={value}
+        onChange={(event) => onChange(event.target.value)}
+        inputRef={ref}
+        inputProps={{ 'aria-label': ariaLabel }}
+        startAdornment={
+          <InputAdornment position="start">
+            <SearchIcon fontSize="small" className="ui-searchbar-icon" aria-hidden />
+          </InputAdornment>
+        }
+      />
+    )
+  },
+)
 
 export const SearchBar = memo(SearchBarComponent)

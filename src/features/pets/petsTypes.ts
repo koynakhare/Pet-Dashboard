@@ -6,7 +6,6 @@ export interface Pet {
   createdAt: string
   estimatedSizeMb: number
   fileSizeKb: number
-  tags: string[]
   favorite: boolean
 }
 
@@ -16,5 +15,4 @@ export interface PetApiDto {
   url?: string
   createdAt?: string
   sizeKb?: number
-  tags?: string[]
 }

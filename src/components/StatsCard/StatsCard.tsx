@@ -1,5 +1,5 @@
-import type { ReactNode } from 'react'
 import { Paper, Typography } from '@mui/material'
+import type { ReactNode } from 'react'
 import './StatsCard.css'
 
 type StatsCardProps = {
@@ -10,15 +10,11 @@ type StatsCardProps = {
   variant?: 'default' | 'gradient'
 }
 
-export function StatsCard({
-  label,
-  value,
-  hint,
-  icon,
-  variant = 'default',
-}: StatsCardProps) {
+export function StatsCard({ label, value, hint, icon, variant = 'default' }: StatsCardProps) {
   const rootClass =
-    variant === 'gradient' ? 'ui-stats-card ui-stats-card-gradient glass-surface' : 'ui-stats-card glass-surface'
+    variant === 'gradient'
+      ? 'ui-stats-card ui-stats-card-gradient glass-surface'
+      : 'ui-stats-card glass-surface'
   return (
     <Paper elevation={0} className={rootClass}>
       {icon ? <div className="ui-stats-card-icon">{icon}</div> : null}

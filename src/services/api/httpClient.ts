@@ -1,10 +1,7 @@
 import { axiosInstance } from '@/services/api/axiosInstance'
 import type { AxiosRequestConfig } from 'axios'
 
-export async function getRequest<T>(
-  url: string,
-  config?: AxiosRequestConfig,
-): Promise<T> {
+export async function getRequest<T>(url: string, config?: AxiosRequestConfig): Promise<T> {
   const response = await axiosInstance.get<T>(url, config)
   return response.data
 }
@@ -27,10 +24,7 @@ export async function putRequest<T, B = unknown>(
   return response.data
 }
 
-export async function deleteRequest<T>(
-  url: string,
-  config?: AxiosRequestConfig,
-): Promise<T> {
+export async function deleteRequest<T>(url: string, config?: AxiosRequestConfig): Promise<T> {
   const response = await axiosInstance.delete<T>(url, config)
   return response.data
 }

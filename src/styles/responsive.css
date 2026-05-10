@@ -8,6 +8,21 @@
   }
 }
 
+@media (max-width: 480px) {
+  .main-layout-shell {
+    padding-inline: var(--space-3);
+  }
+
+  .main-layout-content {
+    padding-top: var(--space-5);
+    padding-bottom: var(--space-8);
+  }
+
+  .ui-searchbar-input input {
+    font-size: 1rem;
+  }
+}
+
 @media (max-width: 1024px) {
   .pet-detail-showcase {
     grid-template-columns: 1fr;

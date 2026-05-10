@@ -1,10 +1,9 @@
+import type { Pet } from '@/features/pets/petsTypes'
 import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded'
 import OpenInNewRoundedIcon from '@mui/icons-material/OpenInNewRounded'
-import { Chip, IconButton, Typography } from '@mui/material'
-import map from 'lodash/map'
-import { memo, useCallback, type SyntheticEvent } from 'react'
+import { IconButton, Typography } from '@mui/material'
+import { type SyntheticEvent, memo, useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
-import type { Pet } from '@/features/pets/petsTypes'
 import './FavoriteCard.css'
 
 export type FavoriteCardProps = {
@@ -63,11 +62,6 @@ export const FavoriteCard = memo(function FavoriteCard({
         <Typography component="p" className="favorite-card-description">
           {pet.description}
         </Typography>
-        <div className="favorite-card-tags">
-          {map(pet.tags.slice(0, 4), (tag) => (
-            <Chip key={tag} size="small" label={tag} className="favorite-card-tag" />
-          ))}
-        </div>
       </div>
     </article>
   )

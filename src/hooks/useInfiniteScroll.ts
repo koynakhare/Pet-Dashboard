@@ -1,16 +1,12 @@
-import {
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-  type RefObject,
-} from 'react'
+import { type RefObject, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 
 export type UseInfiniteScrollOptions = {
   chunkSize?: number
   rootMargin?: string
   root?: Element | null
+  revealRemainderOnIntersect?: boolean
+  loop?: boolean
+  maxLoopRows?: number
 }
 
 export type UseInfiniteScrollResult<T> = {
@@ -26,8 +22,11 @@ export function useInfiniteScroll<T>(
   options: UseInfiniteScrollOptions = {},
 ): UseInfiniteScrollResult<T> {
   const chunkSize = options.chunkSize ?? 24
-  const rootMargin = options.rootMargin ?? '160px'
+  const rootMargin = options.rootMargin ?? '80px'
   const root = options.root ?? null
+  const revealRemainderOnIntersect = options.revealRemainderOnIntersect ?? false
+  const loop = options.loop ?? false
+  const maxLoopRows = options.maxLoopRows ?? 500
 
   const itemsSignature = useMemo(() => {
     if (items.length === 0) {
@@ -38,20 +37,33 @@ export function useInfiniteScroll<T>(
     return `${items.length}:${String(first?.id)}:${String(last?.id)}`
   }, [items])
 
-  const [visibleCount, setVisibleCount] = useState(() =>
-    Math.min(chunkSize, items.length),
-  )
+  const [visibleCount, setVisibleCount] = useState(() => Math.min(chunkSize, items.length))
 
   useEffect(() => {
     setVisibleCount(Math.min(chunkSize, items.length))
   }, [itemsSignature, chunkSize, items.length])
 
-  const visibleItems = useMemo(
-    () => items.slice(0, visibleCount),
-    [items, visibleCount],
-  )
+  const visibleItems = useMemo(() => {
+    if (items.length === 0) {
+      return []
+    }
+    if (loop) {
+      const n = Math.min(visibleCount, maxLoopRows)
+      return Array.from({ length: n }, (_, i) => items[i % items.length] as T)
+    }
+    return items.slice(0, visibleCount)
+  }, [items, visibleCount, loop, maxLoopRows])
 
-  const hasMore = visibleCount < items.length
+  const hasMore = useMemo(() => {
+    if (items.length === 0) {
+      return false
+    }
+    if (loop) {
+      return visibleCount < maxLoopRows
+    }
+    return visibleCount < items.length
+  }, [items.length, loop, maxLoopRows, visibleCount])
+
   const unlockRef = useRef(false)
 
   const loadNextChunk = useCallback(() => {
@@ -59,17 +71,25 @@ export function useInfiniteScroll<T>(
       return
     }
     unlockRef.current = true
-    setVisibleCount((current) => Math.min(current + chunkSize, items.length))
+    setVisibleCount((current) => {
+      if (loop) {
+        return Math.min(current + chunkSize, maxLoopRows)
+      }
+      if (revealRemainderOnIntersect) {
+        return items.length
+      }
+      return Math.min(current + chunkSize, items.length)
+    })
     window.requestAnimationFrame(() => {
       unlockRef.current = false
     })
-  }, [chunkSize, items.length])
+  }, [chunkSize, items.length, loop, maxLoopRows, revealRemainderOnIntersect])
 
   const sentinelRef = useRef<HTMLDivElement | null>(null)
 
   useEffect(() => {
     const node = sentinelRef.current
-    if (!node || !hasMore) {
+    if (!(node && hasMore)) {
       return
     }
     const observer = new IntersectionObserver(
@@ -79,7 +99,7 @@ export function useInfiniteScroll<T>(
           loadNextChunk()
         }
       },
-      { root, rootMargin, threshold: 0.01 },
+      { root, rootMargin, threshold: 0 },
     )
     observer.observe(node)
     return () => observer.disconnect()

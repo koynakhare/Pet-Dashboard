@@ -1,12 +1,11 @@
-import DashboardOutlinedIcon from '@mui/icons-material/DashboardOutlined'
+import { RoutePath } from '@/utils/enums/routePath'
 import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded'
-import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined'
-import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined'
+import HomeRoundedIcon from '@mui/icons-material/HomeRounded'
+import PersonOutlineRoundedIcon from '@mui/icons-material/PersonOutlineRounded'
 import PetsIcon from '@mui/icons-material/Pets'
 import map from 'lodash/map'
 import type { ReactElement } from 'react'
 import { NavLink } from 'react-router-dom'
-import { RoutePath } from '@/utils/enums/routePath'
 import './AppSidebar.css'
 
 type SidebarLink = {
@@ -20,8 +19,8 @@ const SIDEBAR_LINKS: SidebarLink[] = [
   {
     to: RoutePath.Home,
     label: 'Home',
-    description: 'Landing & highlights',
-    icon: <HomeOutlinedIcon />,
+    description: 'Welcome & project overview',
+    icon: <HomeRoundedIcon />,
   },
   {
     to: RoutePath.Pets,
@@ -36,16 +35,10 @@ const SIDEBAR_LINKS: SidebarLink[] = [
     icon: <FavoriteRoundedIcon />,
   },
   {
-    to: RoutePath.Dashboard,
-    label: 'Dashboard',
-    description: 'Analytics & insights',
-    icon: <DashboardOutlinedIcon />,
-  },
-  {
     to: RoutePath.About,
-    label: 'About',
-    description: 'Profile & stack',
-    icon: <InfoOutlinedIcon />,
+    label: 'About me',
+    description: 'Project story, stack & contact',
+    icon: <PersonOutlineRoundedIcon />,
   },
 ]
 
@@ -56,7 +49,11 @@ export function AppSidebar() {
       <ul className="app-sidebar-list">
         {map(SIDEBAR_LINKS, (item) => (
           <li key={item.to}>
-            <NavLink to={item.to} className="app-sidebar-link" end={item.to === RoutePath.Home}>
+            <NavLink
+              to={item.to}
+              className="app-sidebar-link"
+              end={item.to === RoutePath.Home || item.to === RoutePath.Pets}
+            >
               <span className="app-sidebar-link-icon">{item.icon}</span>
               <span className="app-sidebar-link-text">
                 <span className="app-sidebar-link-label">{item.label}</span>

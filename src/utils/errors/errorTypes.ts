@@ -1,27 +1,16 @@
-/**
- * Normalized API / thunk error payload returned by `handleErrors`.
- */
 export type NormalizedErrorResponse = {
   success: false
   message: string
-  /** Always `true` for error results (explicit flag for consumers). */
   error: true
   statusCode?: number
 }
 
-/**
- * Intermediate shape produced while parsing unknown errors (before user-facing copy).
- */
 export type ParsedErrorDetails = {
   message: string
   statusCode?: number
-  /** Axios / runtime error code when available (e.g. `ECONNABORTED`, `ERR_NETWORK`). */
   code?: string
 }
 
-/**
- * Typed HTTP error thrown after the axios response interceptor so status is not lost.
- */
 export class AppHttpError extends Error {
   override readonly name = 'AppHttpError'
   readonly statusCode?: number
@@ -35,8 +24,12 @@ export class AppHttpError extends Error {
     },
   ) {
     super(message)
-    this.statusCode = options?.statusCode
-    this.code = options?.code
+    if (options?.statusCode !== undefined) {
+      this.statusCode = options.statusCode
+    }
+    if (options?.code !== undefined) {
+      this.code = options.code
+    }
   }
 }
 

@@ -1,1 +1,0 @@
-export { DownloadsCard } from './DownloadsCard'

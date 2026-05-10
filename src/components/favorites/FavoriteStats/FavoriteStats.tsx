@@ -12,12 +12,7 @@ type FavoriteStatsProps = {
   stats: FavoriteStatItem[]
 }
 
-const STAGGER_CLASSES = [
-  'anim-stagger-1',
-  'anim-stagger-2',
-  'anim-stagger-3',
-  'anim-stagger-4',
-]
+const STAGGER_CLASSES = ['anim-stagger-1', 'anim-stagger-2', 'anim-stagger-3', 'anim-stagger-4']
 
 export function FavoriteStats({ stats }: FavoriteStatsProps) {
   return (

@@ -1,1 +1,0 @@
-export { DashboardGradientBg } from './DashboardGradientBg'

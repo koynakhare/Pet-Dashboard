@@ -31,18 +31,27 @@
   line-height: 1.5;
 }
 
-.pet-detail-gallery-preview-track {
-  display: flex;
+.pet-detail-gallery-preview-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
   gap: var(--space-3);
-  overflow-x: auto;
-  padding-bottom: var(--space-2);
-  scroll-snap-type: x mandatory;
-  scrollbar-width: thin;
+  align-items: start;
+}
+
+.pet-detail-gallery-preview-footer {
+  width: 100%;
+}
+
+.pet-detail-gallery-preview-sentinel {
+  width: 100%;
+  min-height: 48px;
+  flex-shrink: 0;
+  pointer-events: none;
 }
 
 .pet-detail-gallery-preview-thumb {
-  flex: 0 0 120px;
-  scroll-snap-align: start;
+  width: 100%;
+  min-width: 0;
   border: none;
   padding: 0;
   margin: 0;
@@ -51,10 +60,8 @@
   cursor: pointer;
   background: rgba(110, 91, 255, 0.06);
   text-align: left;
-  transition:
-    transform var(--dur-base) var(--ease-soft),
-    box-shadow var(--dur-base) var(--ease-soft),
-    border-color var(--dur-base) var(--ease-soft);
+  transition: transform var(--dur-base) var(--ease-soft), box-shadow var(--dur-base)
+    var(--ease-soft), border-color var(--dur-base) var(--ease-soft);
   border: 1px solid transparent;
 }
 

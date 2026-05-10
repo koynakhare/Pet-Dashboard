@@ -1,3 +1,4 @@
+export { FloatingDownloadButton } from './FloatingDownloadButton'
 export { PetCard } from './PetCard'
 export { PetGallery } from './PetGallery'
 export { PetSearchBar } from './PetSearchBar'

@@ -1,8 +1,8 @@
+import type { Pet } from '@/features/pets/petsTypes'
 import CollectionsRoundedIcon from '@mui/icons-material/CollectionsRounded'
 import { Typography } from '@mui/material'
 import map from 'lodash/map'
-import { memo } from 'react'
-import type { Pet } from '@/features/pets/petsTypes'
+import { type ReactNode, type RefObject, memo } from 'react'
 import './PetGalleryPreview.css'
 
 type PetGalleryPreviewProps = {
@@ -11,6 +11,8 @@ type PetGalleryPreviewProps = {
   pets: Pet[]
   activeId: number
   onSelectPet: (id: number) => void
+  listFooter?: ReactNode
+  scrollSentinelRef?: RefObject<HTMLDivElement | null>
 }
 
 function PetGalleryPreviewComponent({
@@ -19,6 +21,8 @@ function PetGalleryPreviewComponent({
   pets,
   activeId,
   onSelectPet,
+  listFooter,
+  scrollSentinelRef,
 }: PetGalleryPreviewProps) {
   if (pets.length === 0) {
     return null
@@ -36,7 +40,7 @@ function PetGalleryPreviewComponent({
           </Typography>
         </div>
       </div>
-      <div className="pet-detail-gallery-preview-track">
+      <div className="pet-detail-gallery-preview-grid">
         {map(pets, (pet) => (
           <button
             key={pet.id}
@@ -51,6 +55,12 @@ function PetGalleryPreviewComponent({
           </button>
         ))}
       </div>
+      {listFooter ? <div className="pet-detail-gallery-preview-footer">{listFooter}</div> : null}
+      <div
+        ref={scrollSentinelRef}
+        className="pet-detail-gallery-preview-sentinel"
+        aria-hidden="true"
+      />
     </section>
   )
 }

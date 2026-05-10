@@ -1,12 +1,13 @@
-import { createSlice } from '@reduxjs/toolkit'
 import type { Pet } from '@/features/pets/petsTypes'
 import { fetchPets } from '@/redux/actions/petsActions'
 import { createAddCaseHandler } from '@/redux/helper'
 import type { RootState } from '@/redux/rootReducer'
+import { createSlice } from '@reduxjs/toolkit'
 import orderBy from 'lodash/orderBy'
 
 const initialState = {
   items: [] as Pet[],
+  usingFallbackData: false,
   searchQuery: '',
   sortBy: 'newest' as 'newest' | 'oldest' | 'name-asc' | 'name-desc',
   showFavoritesOnly: false,
@@ -56,7 +57,8 @@ const petsSlice = createSlice({
         state.hasRequested = true
       },
       onFulfilled: (state, action) => {
-        state.items = action.payload
+        state.items = action.payload.items
+        state.usingFallbackData = action.payload.usingFallbackData
         state.hasFetched = true
       },
     })
@@ -85,7 +87,6 @@ export function selectSortedPets(items: Pet[], sortBy: typeof initialState.sortB
       return orderBy(items, ['title'], ['asc'])
     case 'name-desc':
       return orderBy(items, ['title'], ['desc'])
-    case 'newest':
     default:
       return orderBy(items, ['createdAt'], ['desc'])
   }

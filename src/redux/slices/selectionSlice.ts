@@ -1,6 +1,6 @@
-import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
 import { loadStoredPetSelection } from '@/features/pets/selectionStorage'
 import type { RootState } from '@/redux/rootReducer'
+import { type PayloadAction, createSlice } from '@reduxjs/toolkit'
 
 export type SelectionState = {
   selectedIds: number[]
@@ -34,12 +34,8 @@ const selectionSlice = createSlice({
   },
 })
 
-export const {
-  toggleSelectPet,
-  selectAllVisible,
-  clearSelection,
-  pruneSelectionToValidIds,
-} = selectionSlice.actions
+export const { toggleSelectPet, selectAllVisible, clearSelection, pruneSelectionToValidIds } =
+  selectionSlice.actions
 export const selectionReducer = selectionSlice.reducer
 
 export function selectSelectionState(state: RootState): SelectionState {

@@ -11,33 +11,16 @@
   min-height: 64px;
 }
 
-.app-navbar-brand {
-  display: flex;
-  align-items: center;
-  gap: var(--space-2);
-  flex-shrink: 0;
-}
-
-.app-navbar-logo {
-  width: 36px;
-  height: 36px;
-  background: var(--gradient-primary);
-  font-weight: 800;
-  font-size: 0.95rem;
-}
-
-.app-navbar-title {
-  font-weight: 800;
-  font-size: 1.05rem;
-  letter-spacing: -0.02em;
-  color: var(--color-text);
+.app-navbar-balance {
+  flex: 1;
+  min-width: 0;
 }
 
 .app-navbar-links {
   display: flex;
   align-items: center;
   gap: var(--space-1);
-  flex: 1;
+  flex: 0 1 auto;
   justify-content: center;
   min-width: 0;
   overflow-x: auto;
@@ -50,14 +33,54 @@
 }
 
 .app-navbar-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
   color: var(--color-text);
   text-transform: none;
   font-weight: 600;
   border-radius: var(--radius-md);
-  transition:
-    background 200ms ease,
-    transform 200ms ease;
+  transition: background 200ms ease, transform 200ms ease;
   flex-shrink: 0;
+}
+
+.app-navbar-new-pill {
+  height: 20px;
+  min-width: 0;
+  font-size: 0.625rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, #fbbf24 0%, #d97706 100%);
+  color: #fff;
+  border: none;
+}
+
+.app-navbar-menu-trigger {
+  min-width: 48px;
+  min-height: 48px;
+  margin-right: var(--space-1);
+}
+
+.app-navbar-drawer-paper {
+  width: min(320px, 88vw);
+  padding-top: var(--space-2);
+  background: var(--color-surface);
+}
+
+.app-navbar-drawer-inner {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  padding: var(--space-3);
+}
+
+.app-navbar-drawer-link {
+  gap: var(--space-1);
+}
+
+.app-navbar-help,
+.app-navbar-theme-toggle {
+  min-width: 44px;
+  min-height: 44px;
 }
 
 .app-navbar-link:hover {
@@ -73,18 +96,13 @@
   display: flex;
   align-items: center;
   gap: var(--space-2);
-  flex-shrink: 0;
+  flex: 1;
+  justify-content: flex-end;
+  min-width: 0;
 }
 
 .app-navbar-theme-toggle {
   border-radius: var(--radius-md);
-}
-
-.app-navbar-user-avatar {
-  width: 34px;
-  height: 34px;
-  font-size: 0.85rem;
-  font-weight: 700;
 }
 
 .app-navbar-auth {

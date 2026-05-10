@@ -15,7 +15,7 @@ export function FavoriteHero() {
           Your curated favorites
         </Typography>
         <Typography component="p" className="favorite-hero-subtitle">
-          A living mood board of the pets you love — synced everywhere you browse in Pet Gallery.
+          Your living mood board of beloved pets, synced everywhere in Pet Gallery.
         </Typography>
       </div>
     </section>

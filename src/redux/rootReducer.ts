@@ -1,10 +1,8 @@
-import { combineReducers } from '@reduxjs/toolkit'
 import { petsReducer } from '@/redux/slices/petsSlice'
-import { authReducer } from '@/redux/slices/authSlice'
 import { selectionReducer } from '@/redux/slices/selectionSlice'
+import { combineReducers } from '@reduxjs/toolkit'
 
 export const rootReducer = combineReducers({
-  auth: authReducer,
   pets: petsReducer,
   selection: selectionReducer,
 })

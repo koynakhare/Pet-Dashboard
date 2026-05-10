@@ -1,7 +1,7 @@
-import type { ReactElement } from 'react'
-import { Box, Chip, CircularProgress, Typography } from '@mui/material'
+import { Box, Chip, CircularProgress } from '@mui/material'
 import map from 'lodash/map'
-import './SelectionToolbar.css'
+import type { ReactElement } from 'react'
+import styled, { css } from 'styled-components'
 
 export type SelectionToolbarAction = {
   id: string
@@ -18,41 +18,84 @@ type SelectionToolbarProps = {
   actions: SelectionToolbarAction[]
 }
 
+const Row = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3);
+`
+
+/* Native element: matches MUI Typography body2 sizing without Emotion prop conflicts. */
+const Summary = styled.p`
+  margin: 0;
+  color: var(--color-muted);
+  font-weight: 600;
+  font-size: 0.875rem;
+  line-height: 1.43;
+`
+
+const Spacer = styled(Box)`
+  flex: 1;
+  min-width: var(--space-4);
+`
+
+const Actions = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+`
+
+const ToolbarSpinner = styled(CircularProgress)`
+  margin-left: var(--space-2);
+  color: ${(p) => p.theme.color.primary};
+`
+
+type ToolbarChipProps = {
+  $loading?: boolean
+}
+
+const ToolbarChip = styled(Chip)<ToolbarChipProps>`
+  font-weight: 600;
+  transition:
+    transform 200ms ease,
+    box-shadow 200ms ease;
+
+  &.MuiChip-clickable:not(.Mui-disabled):hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-soft);
+  }
+
+  ${(props) =>
+    props.$loading &&
+    css`
+      border-color: ${props.theme.color.primary};
+      background: rgba(110, 91, 255, 0.08);
+    `}
+`
+
 export function SelectionToolbar({ summary, actions }: SelectionToolbarProps) {
   return (
-    <div className="selection-toolbar-row">
-      <Typography component="p" variant="body2" className="selection-toolbar-summary">
-        {summary}
-      </Typography>
-      <Box className="selection-toolbar-spacer" />
-      <div className="selection-toolbar-actions">
+    <Row>
+      <Summary>{summary}</Summary>
+      <Spacer />
+      <Actions>
         {map(actions, (action) => {
           const showSpinner = Boolean(action.loading)
           const blocked = Boolean(action.loading || action.disabled)
           const label = action.loading ? (action.loadingLabel ?? action.label) : action.label
           return (
-            <Chip
+            <ToolbarChip
               key={action.id}
-              icon={
-                showSpinner ? (
-                  <CircularProgress size={14} className="selection-toolbar-spinner" />
-                ) : (
-                  action.icon
-                )
-              }
+              icon={showSpinner ? <ToolbarSpinner size={14} /> : action.icon}
               label={label}
               clickable={!blocked}
               onClick={blocked ? undefined : action.onClick}
               disabled={Boolean(action.disabled) && !action.loading}
-              className={
-                action.loading
-                  ? 'selection-toolbar-chip selection-toolbar-chip-loading'
-                  : 'selection-toolbar-chip'
-              }
+              $loading={Boolean(action.loading)}
             />
           )
         })}
-      </div>
-    </div>
+      </Actions>
+    </Row>
   )
 }
