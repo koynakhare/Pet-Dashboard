@@ -4,7 +4,6 @@ import { getRequest } from '@/services/api/httpClient'
 import { API_ENDPOINTS } from '@/utils/constants/apiEndpoints'
 import type { Pet, PetApiDto } from '@/features/pets/petsTypes'
 import get from 'lodash/get'
-import { mockEstimatedSizeMb } from '@/features/pets/utils/mockEstimatedSizeMb'
 
 function createStableId(input: string, index: number): number {
   let hash = 0
@@ -15,7 +14,7 @@ function createStableId(input: string, index: number): number {
   return Math.abs(hash) + index + 1
 }
 
-function mapPetToViewModel(dto: PetApiDto, index: number): Pet {
+function mapPetToViewModel(dto: PetApiDto, index: number, sizeBytes: number = 0): Pet {
   const title = String(get(dto, 'title', `Pet ${index + 1}`))
   const urlValue = String(get(dto, 'url', ''))
   const url =
@@ -35,8 +34,8 @@ function mapPetToViewModel(dto: PetApiDto, index: number): Pet {
       : ['pet', 'gallery', index % 2 === 0 ? 'featured' : 'editorial']
 
   const id = createStableId(`${title}-${url}`, index)
-  const estimatedSizeMb = mockEstimatedSizeMb(id)
-  const fileSizeKb = Math.max(1, Math.round(estimatedSizeMb * 1024))
+  const fileSizeKb = sizeBytes > 0 ? Math.max(1, Math.round(sizeBytes / 1024)) : 0
+  const estimatedSizeMb = sizeBytes > 0 ? Math.round((sizeBytes / (1024 * 1024)) * 100) / 100 : 0
 
   return {
     id,
@@ -48,6 +47,26 @@ function mapPetToViewModel(dto: PetApiDto, index: number): Pet {
     fileSizeKb,
     tags,
     favorite: false,
+  }
+}
+
+// Reads the real byte size of an image via a HEAD request. Returns 0 when the
+// server omits Content-Length, blocks CORS, or the request fails — callers
+// should treat 0 as "size unknown" and render accordingly.
+async function fetchImageSizeBytes(url: string): Promise<number> {
+  if (!url || url.startsWith('data:')) {
+    return 0
+  }
+  try {
+    const response = await fetch(url, { method: 'HEAD', mode: 'cors' })
+    if (!response.ok) {
+      return 0
+    }
+    const contentLength = response.headers.get('content-length')
+    const bytes = contentLength ? Number(contentLength) : 0
+    return Number.isFinite(bytes) && bytes > 0 ? bytes : 0
+  } catch {
+    return 0
   }
 }
 
@@ -77,10 +96,14 @@ const FALLBACK_PETS_PAYLOAD: PetApiDto[] = [
   { title: 'Polly', description: 'Excellent imitator. Dislikes being patronized with crackers.', url: 'https://images.pexels.com/photos/56733/pexels-photo-56733.jpeg?format=tiny' },
 ]
 
-function buildPetsFromRows(rows: unknown[]): Pet[] {
-  return rows
-    .filter((entry): entry is PetApiDto => typeof entry === 'object' && entry !== null)
-    .map((entry, index) => mapPetToViewModel(entry, index))
+async function buildPetsFromRows(rows: unknown[]): Promise<Pet[]> {
+  const dtos = rows.filter(
+    (entry): entry is PetApiDto => typeof entry === 'object' && entry !== null,
+  )
+  const sizes = await Promise.all(
+    dtos.map((dto) => fetchImageSizeBytes(String(get(dto, 'url', '')))),
+  )
+  return dtos.map((entry, index) => mapPetToViewModel(entry, index, sizes[index]))
 }
 
 export const fetchPets = createGenericAsyncThunk<Pet[], void, RootState>(
@@ -89,10 +112,10 @@ export const fetchPets = createGenericAsyncThunk<Pet[], void, RootState>(
     try {
       const json = await getRequest<unknown>(API_ENDPOINTS.PETS)
       const rows = Array.isArray(json) ? json : (get(json, 'data', []) as unknown[])
-      return buildPetsFromRows(rows)
+      return await buildPetsFromRows(rows)
     } catch (error) {
       console.error('[fetchPets] Falling back to bundled pets payload:', error)
-      return buildPetsFromRows(FALLBACK_PETS_PAYLOAD)
+      return await buildPetsFromRows(FALLBACK_PETS_PAYLOAD)
     }
   },
   {
