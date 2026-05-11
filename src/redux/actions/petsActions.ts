@@ -1,7 +1,9 @@
+import { API_BASE_URL } from '@/config'
 import type { Pet, PetApiDto } from '@/features/pets/petsTypes'
 import { createGenericAsyncThunk } from '@/redux/helper'
 import type { RootState } from '@/redux/rootReducer'
-import { fetchPets as fetchPetsFromApi } from '@/services/api/fetchClient'
+import { buildAbsoluteApiUrl, fetchJson } from '@/services/api/fetchClient'
+import { API_ENDPOINTS } from '@/utils/constants/apiEndpoints'
 import { extractErrorMessage } from '@/utils/errors/errorUtils'
 import get from 'lodash/get'
 
@@ -199,7 +201,8 @@ export const fetchPets = createGenericAsyncThunk<
   'pets/fetchAll',
   async () => {
     try {
-      const json = await fetchPetsFromApi()
+      const petsUrl = buildAbsoluteApiUrl(API_BASE_URL, API_ENDPOINTS.PETS)
+      const json = await fetchJson(petsUrl, { label: `GET ${API_ENDPOINTS.PETS}` })
       const rows = Array.isArray(json) ? json : (get(json, 'data', []) as unknown[])
       const items = buildPetsFromRows(rows)
       return { items, usingFallbackData: false }

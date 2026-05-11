@@ -1,28 +1,22 @@
-import { API_BASE_URL } from '@/config'
-import { API_ENDPOINTS } from '@/utils/constants/apiEndpoints'
+const DEFAULT_FETCH_TIMEOUT_MS = 30_000
 
-const FETCH_TIMEOUT_MS = 30_000
-
-export class PetsFetchError extends Error {
+export class FetchClientError extends Error {
   readonly status: number | undefined
 
   constructor(message: string, cause?: unknown, status?: number) {
     super(message, cause !== undefined ? { cause } : undefined)
-    this.name = 'PetsFetchError'
+    this.name = 'FetchClientError'
     this.status = status
   }
 }
 
-function buildAbsolutePetsUrl(): string {
-  const base = API_BASE_URL.replace(/\/$/, '')
-  const path =
-    typeof API_ENDPOINTS.PETS === 'string' && API_ENDPOINTS.PETS.startsWith('/')
-      ? API_ENDPOINTS.PETS
-      : `/${API_ENDPOINTS.PETS}`
-  return `${base}${path}`
+export function buildAbsoluteApiUrl(baseUrl: string, path: string): string {
+  const base = baseUrl.replace(/\/$/, '')
+  const normalizedPath = path.startsWith('/') ? path : `/${path}`
+  return `${base}${normalizedPath}`
 }
 
-function abortableFetch(
+export function abortableFetch(
   resource: Parameters<typeof fetch>[0],
   init: RequestInit,
   ms: number,
@@ -37,43 +31,56 @@ function abortableFetch(
   return fetch(resource, merged).finally(done)
 }
 
-export async function fetchPets(): Promise<unknown> {
-  const url = buildAbsolutePetsUrl()
-  const headers: HeadersInit = {
-    Accept: 'application/json',
-    'Content-Type': 'application/json',
-  }
+export type FetchJsonParams = {
+  label: string
+  method?: string
+  headers?: HeadersInit
+  credentials?: RequestCredentials
+  timeoutMs?: number
+}
+
+export async function fetchJson(url: string, params: FetchJsonParams): Promise<unknown> {
+  const {
+    label,
+    method = 'GET',
+    headers = {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+    credentials = 'same-origin',
+    timeoutMs = DEFAULT_FETCH_TIMEOUT_MS,
+  } = params
 
   let response: Response
   try {
     response = await abortableFetch(
       url,
       {
-        method: 'GET',
+        method,
         headers,
-        credentials: 'same-origin',
+        credentials,
       },
-      FETCH_TIMEOUT_MS,
+      timeoutMs,
     )
   } catch (cause) {
     if (cause instanceof DOMException && cause.name === 'AbortError') {
-      throw new PetsFetchError(`GET /pets timed out after ${FETCH_TIMEOUT_MS}ms`, cause)
+      throw new FetchClientError(`${label} timed out after ${timeoutMs}ms`, cause)
     }
-    throw new PetsFetchError('GET /pets network error', cause)
+    throw new FetchClientError(`${label} network error`, cause)
   }
 
   if (!response.ok) {
-    throw new PetsFetchError(`HTTP ${response.status}`, undefined, response.status)
+    throw new FetchClientError(`HTTP ${response.status}`, undefined, response.status)
   }
 
   const text = await response.text()
   if (!text.trim()) {
-    throw new PetsFetchError('Empty response body from GET /pets')
+    throw new FetchClientError(`Empty response body from ${label}`)
   }
 
   try {
     return JSON.parse(text) as unknown
   } catch (cause) {
-    throw new PetsFetchError('Invalid JSON from GET /pets', cause)
+    throw new FetchClientError(`Invalid JSON from ${label}`, cause)
   }
 }
