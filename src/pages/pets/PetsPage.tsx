@@ -42,11 +42,15 @@ export default function PetsPage() {
   const scopeIds = useMemo(() => map(petsData.displayPets, (pet) => pet.id), [petsData.displayPets])
   const selection = useSelection(scopeIds)
   const { selectAllInScope, clear: clearSelection } = selection
+  const hasActiveFilters = useMemo(
+    () => search.committedQuery.trim().length > 0 || petsData.favoritesOnly,
+    [search.committedQuery, petsData.favoritesOnly],
+  )
 
   const infinite = useInfiniteScroll(petsData.displayPets, {
     chunkSize: 12,
     rootMargin: '200px',
-    loop: true,
+    loop: !hasActiveFilters,
   })
 
   useEffect(() => {
