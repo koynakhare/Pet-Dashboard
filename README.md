@@ -1,115 +1,361 @@
-# Pet Dashboard
+<a id="readme-top"></a>
 
-A React app for browsing a pet photo catalog: search, sort, multi-select downloads, favorites, detail views—and a **quiz mini-game** built from the same data. Layout and typography are tuned for **phones, tablets, and desktops** (see breakpoints below).
+<div align="center">
 
-## Code quality
+# 🐾 Pet Gallery Dashboard
 
-This codebase is wired for **fast feedback and strict typing**:
+### A modern, responsive pet photo catalog with search, favorites, and an interactive quiz game
 
-| Piece | Role |
-|--------|------|
-| **[Biome](https://biomejs.dev)** (pinned **1.9.x**) | Single tool for **lint + format + import sorting** — replaces ESLint + Prettier for this repo |
-| **TypeScript strict** | `strict`, `noUncheckedIndexedAccess`, `noImplicitReturns`, `exactOptionalPropertyTypes`, `noPropertyAccessFromIndexSignature`, unused locals/parameters, etc. (`tsconfig.json`) |
-| **Husky** | **Pre-commit**: `lint-staged` (Biome on staged files + `tsc` when TS/TSX changes). **Pre-push**: full production build (`type-check` + Vite bundle) |
-| **CI / `deploy.yml`** | On every **push to `main`**, GitHub Actions runs **`npm run lint`** and **`npm run build`** (build already runs a full **`type-check`** first) |
+[![Live Demo](https://img.shields.io/badge/🌐_Live_Demo-pet--dashboard-blue?style=for-the-badge)](https://pet-dashboard-olive.vercel.app/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-strict-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![React](https://img.shields.io/badge/React-19-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://react.dev/)
+[![Biome](https://img.shields.io/badge/Biome-1.9.x-60A5FA?style=for-the-badge)](https://biomejs.dev/)
 
-**Commands:**
+[Features](#-features) • [App Showcase](#-app-showcase) • [Quick Start](#-quick-start) • [Tech Stack](#️-tech-stack) • [Code Quality](#-code-quality)
+
+</div>
+
+---
+
+## ✨ Features
+
+<table>
+<tr>
+<td width="50%">
+
+### 🖼️ Gallery Experience
+- **📱 Fully responsive** — 1 / 2 / 4 column layouts
+- **🔍 Smart search** — Debounced filter on title and description (~280 ms)
+- **📊 Sort** — Gallery and favorites (e.g. name, date)
+- **∞ Infinite scroll** — Chunked loading with intersection observer (`useInfiniteScroll`)
+- **⚡ Image tuning** — `optimizeImageUrl` helper for sizing variants
+
+</td>
+<td width="50%">
+
+### 🎯 Interactions
+- **✓ Multi-select** — Bulk actions with estimated download sizes
+- **❤️ Favorites** — Star pets; dedicated `/favorites` view *(in Redux for the loaded session — hard refresh resets stars)*
+- **⬇️ Downloads** — Single files or ZIP batch via `features/pets` download helpers
+- **⌨️ Keyboard shortcuts** — Power-user flows + `?` help overlay
+- **🎮 Quiz game** — Name-the-pet rounds from live catalog data
+
+</td>
+</tr>
+</table>
+
+---
+
+## 💡 Project Highlights
+
+Originally built as a **take-home coding challenge** for Eulerity, this project demonstrates production-ready practices:
+
+<table>
+<tr>
+<td width="50%">
+
+### 🏗️ Architecture
+- **Strict TypeScript** with all safety flags enabled
+- **Redux Toolkit** for predictable state management  
+- **Code splitting** with React.lazy() on all routes
+- **Custom hooks** for reusable logic patterns
+- **Memoized selectors** for derived state performance
+
+</td>
+<td width="50%">
+
+### ✨ Quality & DX
+- **Biome** for 10-100x faster linting vs ESLint
+- **Husky hooks** prevent broken commits
+- **CI/CD pipeline** validates every push
+- **3 responsive breakpoints** (mobile/tablet/desktop)
+- **Keyboard shortcuts** for power users
+
+</td>
+</tr>
+</table>
+
+**Beyond requirements:**
+- 🎮 **Quiz game feature** (not in original spec)
+- ⚡ **Infinite scroll** with intersection observer
+- 🎨 **Glassmorphism UI** with modern design patterns
+- ♿ **Accessibility** with focus management
+- 📦 **Offline fallback** when API is unavailable
+
+---
+
+## 📸 App Showcase
+
+<div align="center">
+
+### 🏠 Welcome to Pet Gallery Dashboard
+
+<a href="./public/screenshots/dashboard.png" target="_blank" rel="noopener noreferrer">
+  <img src="./public/screenshots/dashboard.png" alt="Dashboard overview with stats and navigation" width="100%" loading="lazy">
+</a>
+
+> **First impressions** — Dashboard home with glass surfaces, quick stats, and a clear path into the gallery.
+
+---
+
+### 🖼️ The Gallery Experience
+
+<a href="./public/screenshots/gallery.png" target="_blank" rel="noopener noreferrer">
+  <img src="./public/screenshots/gallery.png" alt="Pet gallery grid with search and toolbar" width="100%" loading="lazy">
+</a>
+
+<table>
+<tr>
+<td align="center" width="33%">
+
+**🔍 Smart Search**
+
+Filter by title or description with debounced input (~280 ms)
+
+</td>
+<td align="center" width="33%">
+
+**✓ Multi-Select**
+
+Bulk selection with download size estimates
+
+</td>
+<td align="center" width="33%">
+
+**∞ Infinite Scroll**
+
+Chunked loading via intersection observer
+
+</td>
+</tr>
+</table>
+
+---
+
+### 🎮 Interactive Quiz Game
+
+<a href="./public/screenshots/quiz.png" target="_blank" rel="noopener noreferrer">
+  <img src="./public/screenshots/quiz.png" alt="Pet quiz with question image and answer options" width="100%" loading="lazy">
+</a>
+
+<table>
+<tr>
+<td align="center" width="50%">
+
+**📊 Five Questions Per Round**
+
+Three multiple-choice options each
+
+</td>
+<td align="center" width="50%">
+
+**🏆 Score Tracking**
+
+Games played, best score, and rolling average
+
+</td>
+</tr>
+</table>
+
+---
+
+### ❤️ Favorites Collection
+
+<a href="./public/screenshots/favourites.png" target="_blank" rel="noopener noreferrer">
+  <img src="./public/screenshots/favourites.png" alt="Favorites page with starred pets" width="100%" loading="lazy">
+</a>
+
+> **Curate your picks** — Star pets in the gallery and revisit them here with the same search and sort affordances.
+
+---
+
+### 🌙 Dark Mode
+
+<a href="./public/screenshots/dark.png" target="_blank" rel="noopener noreferrer">
+  <img src="./public/screenshots/dark.png" alt="App in dark theme" width="100%" loading="lazy">
+</a>
+
+> **Comfortable at night** — Toggle light/dark from the navbar; contrast and hierarchy stay consistent across surfaces.
+
+---
+
+### ⌨️ Keyboard Shortcuts
+
+<a href="./public/screenshots/shortcuts.png" target="_blank" rel="noopener noreferrer">
+  <img src="./public/screenshots/shortcuts.png" alt="Keyboard shortcuts help dialog" width="85%" loading="lazy">
+</a>
+
+<table>
+<tr>
+<td align="center">
+
+`Ctrl/Cmd + A`
+
+Select all
+
+</td>
+<td align="center">
+
+`Escape`
+
+Clear selection
+
+</td>
+<td align="center">
+
+`Ctrl/Cmd + F`
+
+Focus search
+
+</td>
+<td align="center">
+
+`?`
+
+Show help
+
+</td>
+</tr>
+</table>
+
+> **Press `?`** in the app to open the full shortcuts overlay.
+
+*Click any image to open it full size in a new tab.*
+
+[⬆ Back to top](#readme-top)
+
+</div>
+
+---
+
+## 🚀 Quick Start
 
 ```bash
-npm run lint        # biome check .
-npm run lint:fix    # biome check --write .
-npm run format      # biome format --write .
-npm run type-check  # app src + vite.config.ts, no emit
-npm run build       # type-check, then vite build
-```
-
-Recommended: install the **[Biome VS Code extension](https://marketplace.visualstudio.com/items?itemName=biomejs.biome)** (`biomejs.biome`). Workspace defaults live under `.vscode/`.
-
-Bypass hooks only when you must: `git commit --no-verify` / `git push --no-verify`.
-
-## Features
-
-- **Responsive gallery** — CSS breakpoints for **1 / 2 / 4 column** grids; sidebar and density adapt so the UI stays usable on small screens (see **Responsive breakpoints** below).
-- **Pet quiz game** (`/game`) — Multiple-choice rounds from your loaded pets (images + names), streaks/progress UI, replay using `useQuizGame` + shared catalog state.
-- **Image gallery** — Lazy loading and infinite scroll (`useInfiniteScroll`).
-- **Multi-selection** — Select many pets with count and estimated download size.
-- **Search & sort** — Filter by title/description; sort by name or date.
-- **Favorites & detail views** — Star pets, open `/pets/:id` for full detail.
-- **Keyboard shortcuts** — e.g. select all, clear selection, focus search, help overlay (`?`).
-- **Offline-friendly** — Bundled fallback when the API fails.
-
-## Tech stack
-
-- **React 19**, **TypeScript**, **Vite**, **react-router-dom**
-- **Redux Toolkit**, **MUI**, **styled-components**, **Emotion**
-- **Biome** + **strict TS** + **Husky** + **lint-staged** (see **Code quality**)
-
-## Installation
-
-```bash
-git clone [your-repo-url]
+# Clone the repository
+git clone https://github.com/koyakhare/Pet-Dashboard.git
 cd Pet-Dashboard
+
+# Install dependencies
 npm install
-npm run dev          # http://localhost:5173 (Vite default)
-npm run build        # production bundle
-npm run preview      # preview production build
+
+# Start development server (Vite default)
+npm run dev
+# → http://localhost:5173
+
+# Build for production (runs type-check first)
+npm run build
+
+# Preview production build
+npm run preview
 ```
 
-## Routing
+### 🌐 Live Demo
 
+**[pet-dashboard-olive.vercel.app](https://pet-dashboard-olive.vercel.app/)**
+
+---
+
+## 🛠️ Tech Stack
+
+<div align="center">
+
+| Category | Technologies |
+|:--------:|:-------------|
+| **Core** | ![React](https://img.shields.io/badge/React_19-61DAFB?logo=react&logoColor=black) ![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=white) ![Vite](https://img.shields.io/badge/Vite-646CFF?logo=vite&logoColor=white) |
+| **State** | ![Redux](https://img.shields.io/badge/Redux_Toolkit-764ABC?logo=redux&logoColor=white) |
+| **Routing** | ![React Router](https://img.shields.io/badge/React_Router_7-CA4245?logo=react-router&logoColor=white) |
+| **Styling** | ![MUI](https://img.shields.io/badge/MUI-007FFF?logo=mui&logoColor=white) ![Styled Components](https://img.shields.io/badge/styled--components-DB7093?logo=styled-components&logoColor=white) ![Emotion](https://img.shields.io/badge/Emotion-D36AC2) |
+| **Quality** | ![Biome](https://img.shields.io/badge/Biome-60A5FA) ![Husky](https://img.shields.io/badge/Husky-42b883) ![TypeScript Strict](https://img.shields.io/badge/TS_Strict-3178C6?logo=typescript&logoColor=white) |
+
+</div>
+
+---
+
+## 🎯 Code Quality
+
+This project uses **strict TypeScript** and **fast, unified tooling** for day-to-day work.
+
+### 🔒 Type Safety
+
+<table>
+<tr>
+<td width="50%">
+
+**Strict TypeScript** ([`tsconfig.json`](tsconfig.json))
+
+```json
+{
+  "strict": true,
+  "noUncheckedIndexedAccess": true,
+  "noImplicitReturns": true,
+  "exactOptionalPropertyTypes": true,
+  "noPropertyAccessFromIndexSignature": true
+}
 ```
-/           → Dashboard (home / overview)
-/gallery    → Pet gallery (search, selection, infinite scroll)
-/pets       → Redirects to /gallery
-/pets/:id   → Pet detail
-/favorites  → Favorited pets
-/game       → Pet quiz mini-game
-/about      → About
-/404        → Not found
-*           → Redirect to /404
+
+</td>
+<td width="50%">
+
+**Why It Matters**
+
+- Narrower gaps between compile-time contracts and runtime behavior
+- Indexed access and optional props are modeled explicitly
+- Stricter member access rules on typed maps and records
+
+</td>
+</tr>
+</table>
+
+### ⚡ Biome for Lint & Format
+
+**Why Biome?** One toolchain for lint + format + import sorting — typically much faster than an ESLint + Prettier pipeline.
+
+```bash
+npm run lint         # biome check .
+npm run lint:fix     # biome check --write .
+npm run format       # biome format --write .
+npm run type-check   # TypeScript validation (src + vite.config helper project)
+npm run build        # type-check, then vite build
 ```
 
-## Configuration
+Recommended: **[Biome VS Code extension](https://marketplace.visualstudio.com/items?itemName=biomejs.biome)** (`biomejs.biome`). Workspace hints live under [`.vscode/`](.vscode/).
 
-The API base URL is set in [`src/config.ts`](src/config.ts) (`API_BASE_URL`).
+> Pinned **Biome 1.9.x** (`@biomejs/biome` in [`package.json`](package.json)); rules live in [`biome.json`](biome.json).
 
-Optional `.env` for testing dual-failure UX: `VITE_FORCE_PETS_DUAL_FAILURE=true`
+### 🪝 Git Hooks (Husky)
 
-## Responsive breakpoints
+| Hook | Action |
+|------|--------|
+| **Pre-commit** | `lint-staged` → Biome on staged files + `tsc --noEmit` when TS/TSX changes |
+| **Pre-push** | Full **`npm run build`** (already includes **`npm run type-check`**) |
 
-- **Mobile** — &lt; 700px: **1 column**
-- **Tablet** — 700px–1199px: **2 columns**
-- **Desktop** — ≥ 1200px: **4 columns**
+**Bypass only when you must:**
 
-## Keyboard shortcuts
+```bash
+git commit --no-verify
+git push --no-verify
+```
 
-- `Ctrl/Cmd + A` — Select all visible pets
-- `Escape` — Clear selection
-- `Ctrl/Cmd + F` — Focus search
-- `?` — Keyboard shortcuts help
+### 🔄 CI
 
-## Project context
+On every **push to `main`**, GitHub Actions runs **`npm run lint`** and **`npm run build`** (see [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml)).
 
-Originally built as a take-home exercise (Eulerity-style requirements): `fetch` to `/pets`, compelling gallery UI, multi-select + downloads + size estimates, persisted selection, routing with detail routes, styled-components usage, hooks for loading/error/empty, infinite scroll / pagination, responsive 1–2–4 layout.
+---
 
-### Hooks worth reading
+## 📱 Responsive Design
 
-- `usePets` — catalog load/error/empty/retry
-- `useSelection` — selection + download helpers
-- `useInfiniteScroll` — intersection-observer chunked lists
-- `useQuizGame` — quiz session built from pets
-- `useKeyboardShortcuts` — global shortcuts
+Mobile-first breakpoints for the gallery grid:
 
-## Known limitations
+| Device | Breakpoint | Columns |
+|--------|-------------|---------|
+| 📱 **Mobile** | **&lt; 700 px** | 1 |
+| 📟 **Tablet** | **700 px–1199 px** | 2 |
+| 🖥️ **Desktop** | **≥ 1200 px** | 4 |
 
-- Image ZIP/download depends on remote image **CORS** where applicable.
-- Fallback bundle used when the API is down.
-- **localStorage** used for persistence (required for that feature).
+**Extras:** compact **MUI `Drawer`** navigation on smaller viewports, skip link to main content, layout tuned for narrow screens.
 
-## Author
+---
 
-Koyna Khare
+## 🗺️ Routes
 
-## License
-
-This project was created as a take-home assignment for Eulerity.
+Defined in [`src/routes/routeConfig.tsx`](src/routes/routeConfig.tsx). Route chunks use `React.lazy` for code splitting.
