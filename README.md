@@ -67,7 +67,7 @@ Originally built as a **take-home coding challenge** for Eulerity, this project 
 ### ✨ Quality & DX
 - **Biome** for 10-100x faster linting vs ESLint
 - **Husky hooks** prevent broken commits
-- **CI/CD pipeline** validates every push
+- **GitHub Actions** on `main` runs lint + production build; **live site** on [Vercel](https://pet-dashboard-olive.vercel.app/)
 - **3 responsive breakpoints** (mobile/tablet/desktop)
 - **Keyboard shortcuts** for power users
 
@@ -336,9 +336,11 @@ git commit --no-verify
 git push --no-verify
 ```
 
-### 🔄 CI
+### 🔄 CI & deployment
 
-On every **push to `main`**, GitHub Actions runs **`npm run lint`** and **`npm run build`** (see [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml)).
+**Continuous integration** — On every **push to `main`**, the [Deploy workflow](.github/workflows/deploy.yml) checks out the repo, runs **`npm ci`**, then **`npm run lint`** and **`npm run build`** (which already includes **`npm run type-check`**). That keeps `main` from silently accepting broken lint or type errors.
+
+**Production** — The app is deployed and served from **[Vercel](https://pet-dashboard-olive.vercel.app/)** (GitHub integration: connect this repo so pushes to `main` trigger a production build there). The workflow above is your **quality gate** on GitHub; Vercel (or your host) performs the **actual deploy** from the same branch.
 
 ---
 
